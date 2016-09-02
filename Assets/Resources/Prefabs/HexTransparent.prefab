@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000014080821830}
   - 212: {fileID: 212000012499211122}
-  - 114: {fileID: 114000012978681190}
   m_Layer: 0
   m_Name: HexTransparent
   m_TagString: Untagged
@@ -41,19 +40,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &114000012978681190
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013198600298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcf0ecfeb8e54794d821a6371d7b66f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  row: 0
-  col: 0
 --- !u!212 &212000012499211122
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -67,7 +53,7 @@ SpriteRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: dfe06f37e9b99a7418f732878e842dfc, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}

@@ -66,19 +66,26 @@ public class MapGenerator : MonoBehaviour
         for (int i = 0; i < row; i++)
         {
             float xAdjust = 0;
+
             if (i % 2 == 1)
             {
                 xAdjust += width * 0.5f;
             }
+
             for (int j = 0; j < col; j++)
             {
-                Hex hex = Instantiate<GameObject>(hexTransparentPrefab).GetComponent<Hex>();
+                GameObject hexTransparent = Instantiate<GameObject>(hexTransparentPrefab);
+                hexTransparent.transform.SetParent(parentTransform);
+
+                Hex hex = Instantiate<GameObject>(hexPrefab).GetComponent<Hex>();
                 hex.transform.SetParent(parentTransform);
                 hex.row = i;
                 hex.col = j;
+
                 float xOffset = startX + width * j + xAdjust;
                 float yOffset = startY - height * i * 0.75f;
 
+                hexTransparent.transform.position = new Vector2(xOffset, yOffset);
                 hex.transform.position = new Vector2(xOffset, yOffset);
             }
         }

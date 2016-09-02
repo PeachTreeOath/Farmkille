@@ -5,7 +5,9 @@ public class PrefabManager : MonoBehaviour {
 
     public static PrefabManager instance;
 
-    public GameObject highlightFab;
+    public Material fogMat;
+    public Material highlightMat;
+
     public GameObject bgFab;
     public GameObject hexFab;
     public GameObject hexTransparentFab;
@@ -26,7 +28,8 @@ public class PrefabManager : MonoBehaviour {
 
     private void LoadPrefabs()
     {
-        highlightFab = Resources.Load<GameObject>("Materials/Highlight");
+        fogMat = Resources.Load<Material>("Materials/Fog");
+        highlightMat = Resources.Load<Material>("Materials/Highlight");
 
         bgFab = Resources.Load<GameObject>("Prefabs/BGTile");
         hexFab = Resources.Load<GameObject>("Prefabs/Hex");
