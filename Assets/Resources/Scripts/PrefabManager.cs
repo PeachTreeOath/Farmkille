@@ -8,6 +8,7 @@ public class PrefabManager : MonoBehaviour {
     public GameObject highlightFab;
     public GameObject bgFab;
     public GameObject hexFab;
+    public GameObject hexTransparentFab;
 
     void Awake()
     {
@@ -29,6 +30,7 @@ public class PrefabManager : MonoBehaviour {
 
         bgFab = Resources.Load<GameObject>("Prefabs/BGTile");
         hexFab = Resources.Load<GameObject>("Prefabs/Hex");
+        hexTransparentFab = Resources.Load<GameObject>("Prefabs/HexTransparent");
     }
 
 }

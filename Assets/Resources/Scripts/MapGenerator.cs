@@ -3,10 +3,11 @@ using System.Collections;
 
 public class MapGenerator : MonoBehaviour
 {
+    private Transform parentTransform;
 
     private GameObject bgPrefab;
     private GameObject hexPrefab;
-    private Transform parentTransform;
+    private GameObject hexTransparentPrefab;
 
     public int bgRows;
     public int bgCols;
@@ -20,6 +21,7 @@ public class MapGenerator : MonoBehaviour
 
         bgPrefab = PrefabManager.instance.bgFab;
         hexPrefab = PrefabManager.instance.hexFab;
+        hexTransparentPrefab = PrefabManager.instance.hexTransparentFab;
 
         GenerateBG(bgRows, bgCols);
         GenerateHexGrid(hexRows, hexCols);
@@ -70,7 +72,7 @@ public class MapGenerator : MonoBehaviour
             }
             for (int j = 0; j < col; j++)
             {
-                Hex hex = Instantiate<GameObject>(hexPrefab).GetComponent<Hex>();
+                Hex hex = Instantiate<GameObject>(hexTransparentPrefab).GetComponent<Hex>();
                 hex.transform.SetParent(parentTransform);
                 hex.row = i;
                 hex.col = j;

@@ -162,8 +162,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgRows: 3
   bgCols: 3
-  hexRows: 1
-  hexCols: 1
+  hexRows: 6
+  hexCols: 3
 --- !u!4 &716439442
 Transform:
   m_ObjectHideFlags: 0
