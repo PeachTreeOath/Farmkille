@@ -58,8 +58,8 @@ public class MapGenerator : MonoBehaviour
     {
         float width = hexPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
         float height = hexPrefab.GetComponent<SpriteRenderer>().bounds.size.y;
-        float startX = -(col * width) / 2;
-        float startY = (row * height * 0.75f) / 2 - (0.36f * height);
+        float startX = -(col * width) / 2 + (0.25f * width);
+        float startY = (row * height * 0.75f) / 2 - (0.375f * height);
 
         for (int i = 0; i < row; i++)
         {
