@@ -6,8 +6,9 @@ public class Hex : MonoBehaviour
 
     public HexMode mode;
 
-    public int row;
-    public int col;
+    public int x;
+    public int y;
+    public int z;
 
     private SpriteRenderer spriteRenderer;
 
@@ -23,8 +24,22 @@ public class Hex : MonoBehaviour
     {
         if (GameManager.instance.phase == Phase.SCOUT && mode == HexMode.HIGHLIGHT)
         {
-            GameManager.instance.RevealHexes(row, col);
+            GameManager.instance.RevealHexes(x, y, z);
         }
+    }
+
+    public void SetCoords(int q, int r, int s)
+    {
+        x = q;
+        y = r;
+        z = s;
+    }
+
+    public void SetCoords(int q, int r)
+    {
+        x = q;
+        y = r;
+        z = -q - r;
     }
 
     private void ShowSprite(bool enable)
