@@ -4,6 +4,8 @@ using System.Collections;
 public class Hex : MonoBehaviour
 {
 
+    public HexMode mode;
+
     public int row;
     public int col;
 
@@ -11,17 +13,47 @@ public class Hex : MonoBehaviour
 
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
     }
 
-    public void EnableFog()
+    void OnMouseDown()
     {
+        if (GameManager.instance.phase == Phase.SCOUT && mode == HexMode.HIGHLIGHT)
+        {
+            GameManager.instance.RevealHexes(row, col);
+        }
+    }
+
+    private void ShowSprite(bool enable)
+    {
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+        spriteRenderer.enabled = enable;
+    }
+
+    public void SetNormal()
+    {
+        ShowSprite(false);
+        mode = HexMode.NORMAL;
+    }
+
+    public void SetFog()
+    {
+        ShowSprite(true);
         spriteRenderer.material = PrefabManager.instance.fogMat;
+        mode = HexMode.FOG;
     }
 
-    public void EnableHighlight()
+    public void SetHighlight()
     {
+        ShowSprite(true);
         spriteRenderer.material = PrefabManager.instance.highlightMat;
+        mode = HexMode.HIGHLIGHT;
     }
 
 }

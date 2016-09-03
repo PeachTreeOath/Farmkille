@@ -21,6 +21,7 @@ GameObject:
   - 4: {fileID: 4000012386692340}
   - 212: {fileID: 212000012712991482}
   - 114: {fileID: 114000011111824912}
+  - 60: {fileID: 60000011224318090}
   m_Layer: 0
   m_Name: Hex
   m_TagString: Untagged
@@ -41,6 +42,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!60 &60000011224318090
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013961413914}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: -0.6}
+      - {x: -0.515, y: -0.295}
+      - {x: -0.515, y: 0.295}
+      - {x: 0, y: 0.6}
+      - {x: 0.515, y: 0.295}
+      - {x: 0.515, y: -0.295}
 --- !u!114 &114000011111824912
 MonoBehaviour:
   m_ObjectHideFlags: 1

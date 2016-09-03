@@ -25,12 +25,7 @@ public class MapGenerator : MonoBehaviour
 
         GenerateBG(bgRows, bgCols);
         GenerateHexGrid(hexRows, hexCols);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        GameManager.instance.StartGame();
     }
 
     private void GenerateBG(int row, int col)
@@ -58,6 +53,8 @@ public class MapGenerator : MonoBehaviour
 
     private void GenerateHexGrid(int row, int col)
     {
+        Hex[,] grid = new Hex[row,col];
+
         float width = hexPrefab.GetComponent<SpriteRenderer>().bounds.size.x;
         float height = hexPrefab.GetComponent<SpriteRenderer>().bounds.size.y;
         float startX = -(col * width) / 2 + (0.25f * width);
@@ -87,7 +84,10 @@ public class MapGenerator : MonoBehaviour
 
                 hexTransparent.transform.position = new Vector2(xOffset, yOffset);
                 hex.transform.position = new Vector2(xOffset, yOffset);
+                grid[i, j] = hex;
             }
         }
+
+        GameManager.instance.grid = grid;
     }
 }
