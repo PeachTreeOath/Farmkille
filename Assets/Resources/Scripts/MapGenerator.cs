@@ -13,7 +13,6 @@ public class MapGenerator : MonoBehaviour
 
     public int bgRows;
     public int bgCols;
-    public int hexRadius;
 
     // Use this for initialization
     void Start()
@@ -25,7 +24,7 @@ public class MapGenerator : MonoBehaviour
         hexTransparentPrefab = PrefabManager.instance.hexTransparentFab;
 
         GenerateBG(bgRows, bgCols);
-        GenerateHexGrid(hexRadius);
+        GenerateHexGrid(GameManager.instance.hexRadius);
         GameManager.instance.StartGame();
     }
 
@@ -80,37 +79,6 @@ public class MapGenerator : MonoBehaviour
                 grid[new GameManager.Key(i, j)] = hex;
             }
         }
-
-        /* float startX = -(col * width) / 2 + (0.25f * width);
-         float startY = (row * height * 0.75f) / 2 - (0.375f * height);
-
-         for (int i = 0; i < row; i++)
-         {
-             float xAdjust = 0;
-
-             if (i % 2 == 1)
-             {
-                 xAdjust += width * 0.5f;
-             }
-
-             for (int j = 0; j < col; j++)
-             {
-                 GameObject hexTransparent = Instantiate<GameObject>(hexTransparentPrefab);
-                 hexTransparent.transform.SetParent(parentTransform);
-
-                 Hex hex = Instantiate<GameObject>(hexPrefab).GetComponent<Hex>();
-                 hex.transform.SetParent(parentTransform);
-                 hex.row = i;
-                 hex.col = j;
-
-                 float xOffset = startX + width * j + xAdjust;
-                 float yOffset = startY - height * i * 0.75f;
-
-                 hexTransparent.transform.position = new Vector2(xOffset, yOffset);
-                 hex.transform.position = new Vector2(xOffset, yOffset);
-                 grid[i, j] = hex;
-             }
-         }*/
 
         GameManager.instance.grid = grid;
     }

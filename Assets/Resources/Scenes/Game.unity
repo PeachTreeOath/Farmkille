@@ -165,7 +165,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgRows: 3
   bgCols: 3
-  hexRadius: 1
 --- !u!4 &716439442
 Transform:
   m_ObjectHideFlags: 0
@@ -190,6 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa2849b9290a7844c99ad019c7139394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hexRadius: 5
   phase: 0
 --- !u!1 &947146088
 GameObject:

@@ -24,7 +24,7 @@ public class Hex : MonoBehaviour
     {
         if (GameManager.instance.phase == Phase.SCOUT && mode == HexMode.HIGHLIGHT)
         {
-            GameManager.instance.RevealHexes(x, y, z);
+            GameManager.instance.RevealHexes(x, y);
         }
     }
 

@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
+    public int hexRadius;
+
     public Phase phase = Phase.SCOUT;
     public Dictionary<Key, Hex> grid;
 
@@ -36,7 +38,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         FogAllHexes();
-        // RevealHexes(new  / 2, grid.GetLength(1) / 2);
+        RevealHexes(0, 0);
     }
 
     // Update is called once per frame
@@ -67,42 +69,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void RevealHexes(int x, int y, int z)
+    public void RevealHexes(int x, int y)
     {
-        /*  if(row % 2 == 0)
-          {
-              // Top
-              HighLightHex(row - 1, col - 1);
-              HighLightHex(row - 1, col);
-              // Middle
-              HighLightHex(row, col - 1);
-              HighLightHex(row, col);
-              HighLightHex(row, col + 1);
-              // Bottom
-              HighLightHex(row + 1, col - 1);
-              HighLightHex(row + 1, col);
-          }
-          else
-          {
-              // Top
-              HighLightHex(row - 1, col );
-              HighLightHex(row - 1, col+1);
-              // Middle
-              HighLightHex(row, col - 1);
-              HighLightHex(row, col);
-              HighLightHex(row, col + 1);
-              // Bottom
-              HighLightHex(row + 1, col );
-              HighLightHex(row + 1, col+1);
-          }*/
+        HighLightHex(x, y);
+        HighLightHex(x - 1, y);
+        HighLightHex(x - 1, y + 1);
+        HighLightHex(x, y - 1);
+        HighLightHex(x, y + 1);
+        HighLightHex(x + 1, y - 1);
+        HighLightHex(x + 1, y);
     }
 
-    private void HighLightHex(int row, int col)
+    private void HighLightHex(int x, int y)
     {
-        /*   if (CheckWithinBounds(row, col))
-           {
-               grid[row, col].SetHighlight();
-           }*/
+        Hex hex;
+        if (grid.TryGetValue(new Key(x, y), out hex))
+        {
+            hex.SetHighlight();
+        }
     }
 
     private void HighlightAllHexes()
@@ -113,14 +97,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private bool CheckWithinBounds(int row, int col)
+    private bool CheckInBounds(int x, int y)
     {
-        //  if (row >= 0 && row < grid.GetLength(0) && col >= 0 && col < grid.GetLength(1))
+        if (x >= -hexRadius && x <= hexRadius && y >= -hexRadius && y <= hexRadius)
         {
             return true;
-            //  }
-
-            //return false;
         }
+        return false;
     }
 }
