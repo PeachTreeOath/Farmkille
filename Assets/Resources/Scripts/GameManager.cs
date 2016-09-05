@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         yearText = canvas.transform.Find("YearText").GetComponent<Text>();
         taxText = canvas.transform.Find("TaxText").GetComponent<Text>();
         goldText = canvas.transform.Find("GoldText").GetComponent<Text>();
-        movesText = canvas.transform.Find("MoveText").GetComponent<Text>();
+        movesText = canvas.transform.Find("MovesText").GetComponent<Text>();
         turnButton = canvas.GetComponentInChildren<TurnButton>();
     }
 
