@@ -15,7 +15,7 @@ public class TurnButton : MonoBehaviour
         buttonText.text = "End Turn";
     }
 
-    public void ChangePhase(Phase newPhase)
+    public void GoToPhase(Phase newPhase)
     {
         switch (newPhase)
         {
@@ -31,14 +31,11 @@ public class TurnButton : MonoBehaviour
             case Phase.GROW:
                 button.enabled = false;
                 break;
-
         }
-
-
     }
 
     public void EndTurn()
     {
-
+        GameManager.instance.GoToPhase(Phase.GROW);
     }
 }

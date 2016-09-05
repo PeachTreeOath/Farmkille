@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -19,9 +20,17 @@ public class GameManager : MonoBehaviour
 
     public int hexRadius;
 
+    [HideInInspector]
     public Phase phase = Phase.SCOUT;
+    [HideInInspector]
     public Dictionary<Key, Hex> grid;
 
+    private int year = 1;
+
+    private Text yearText;
+    private Text taxText;
+    private Text goldText;
+    private Text movesText;
     private TurnButton turnButton;
 
     void Awake()
@@ -40,7 +49,13 @@ public class GameManager : MonoBehaviour
 
     private void LoadReferences()
     {
-        turnButton = GameObject.Find("Canvas").GetComponentInChildren<TurnButton>();
+
+        GameObject canvas = GameObject.Find("Canvas");
+        yearText = canvas.transform.Find("YearText").GetComponent<Text>();
+        taxText = canvas.transform.Find("TaxText").GetComponent<Text>();
+        goldText = canvas.transform.Find("GoldText").GetComponent<Text>();
+        movesText = canvas.transform.Find("MoveText").GetComponent<Text>();
+        turnButton = canvas.GetComponentInChildren<TurnButton>();
     }
 
     public void StartGame()
@@ -48,7 +63,7 @@ public class GameManager : MonoBehaviour
         GoToPhase(Phase.SCOUT);
     }
 
-    // Update is called once per frame
+    /*
     void Update()
     {
         switch (phase)
@@ -67,8 +82,9 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+    */
 
-    private void GoToPhase(Phase nextPhase)
+    public void GoToPhase(Phase nextPhase)
     {
         // Revert phase first
         UnHighLightAllHexes();
@@ -88,7 +104,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        turnButton.ChangePhase(nextPhase);
+        turnButton.GoToPhase(nextPhase);
     }
 
     private void FogAllHexes()
