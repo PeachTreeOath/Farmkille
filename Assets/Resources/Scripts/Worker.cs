@@ -1,25 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Worker : MonoBehaviour {
+public class Worker : MonoBehaviour
+{
 
     private bool selected;
+    private SpriteRenderer border;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    void Awake()
+    {
+        border = transform.FindChild("Border").GetComponent<SpriteRenderer>();
+        border.enabled = false;
+    }
 
     void OnMouseDown()
     {
-        if (GameManager.instance.phase == Phase.SCOUT && mode == HexMode.HIGHLIGHT)
+        if (GameManager.instance.phase == Phase.PLACEMENT)
         {
-            GameManager.instance.RevealHexes(x, y);
+            if (selected == false)
+            {
+                SelectWorker(enabled);
+            }
+            else
+            {
+                SelectWorker(enabled);
+            }
         }
+    }
+
+    private void SelectWorker(bool enabled)
+    {
+        selected = enabled;
+        border.enabled = enabled;
     }
 }

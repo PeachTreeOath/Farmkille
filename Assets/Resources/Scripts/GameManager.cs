@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public Phase phase = Phase.SCOUT;
     public Dictionary<Key, Hex> grid;
 
+    private TurnButton turnButton;
+
     void Awake()
     {
         if (instance == null)
@@ -32,12 +34,18 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        LoadReferences();
+    }
+
+    private void LoadReferences()
+    {
+        turnButton = GameObject.Find("Canvas").GetComponentInChildren<TurnButton>();
     }
 
     public void StartGame()
     {
-        FogAllHexes();
-        RevealHexes(0, 0);
+        GoToPhase(Phase.SCOUT);
     }
 
     // Update is called once per frame
@@ -58,6 +66,29 @@ public class GameManager : MonoBehaviour
 
                 break;
         }
+    }
+
+    private void GoToPhase(Phase nextPhase)
+    {
+        // Revert phase first
+        UnHighLightAllHexes();
+
+        switch (nextPhase)
+        {
+            case Phase.SCOUT:
+                FogAllHexes();
+                RevealHexes(0, 0);
+                break;
+            case Phase.PLACEMENT:
+
+                break;
+            case Phase.ALIGNMENT:
+                break;
+            case Phase.GROW:
+                break;
+        }
+
+        turnButton.ChangePhase(nextPhase);
     }
 
     private void FogAllHexes()
@@ -88,11 +119,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Used in scout phase only
     private void HighlightAllHexes()
     {
         foreach (var key in grid.Keys)
         {
             grid[key].SetHighlight();
+        }
+    }
+
+    private void UnHighLightAllHexes()
+    {
+        foreach (var key in grid.Keys)
+        {
+            if (grid[key].mode == HexMode.HIGHLIGHT)
+            {
+                grid[key].SetNormal();
+            }
         }
     }
 
