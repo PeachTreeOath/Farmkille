@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public Dictionary<Key, Hex> grid;
 
     private int year = 1;
+    private List<Worker> workers;
 
     private Text yearText;
     private Text taxText;
@@ -49,7 +50,6 @@ public class GameManager : MonoBehaviour
 
     private void LoadReferences()
     {
-
         GameObject canvas = GameObject.Find("Canvas");
         yearText = canvas.transform.Find("YearText").GetComponent<Text>();
         taxText = canvas.transform.Find("TaxText").GetComponent<Text>();
@@ -60,6 +60,9 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        // Create main character
+
+
         GoToPhase(Phase.SCOUT);
     }
 
