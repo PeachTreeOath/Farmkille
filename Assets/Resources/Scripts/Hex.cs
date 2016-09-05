@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 public class Hex : MonoBehaviour
@@ -22,6 +23,10 @@ public class Hex : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         if (GameManager.instance.phase == Phase.SCOUT && mode == HexMode.HIGHLIGHT)
         {
             GameManager.instance.RevealHexes(x, y);

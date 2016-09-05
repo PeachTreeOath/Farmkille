@@ -196,6 +196,7 @@ MonoBehaviour:
   bgFab: {fileID: 0}
   hexFab: {fileID: 0}
   hexTransparentFab: {fileID: 0}
+  workerIconFab: {fileID: 0}
 --- !u!4 &524783432
 Transform:
   m_ObjectHideFlags: 0
@@ -476,6 +477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hexRadius: 5
   phase: 0
+  canvas: {fileID: 0}
 --- !u!114 &716439444
 MonoBehaviour:
   m_ObjectHideFlags: 0

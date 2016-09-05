@@ -26,8 +26,10 @@ public class GameManager : MonoBehaviour
     public Dictionary<Key, Hex> grid;
 
     private int year = 1;
-    private List<Worker> workers;
+    private List<WorkerIcon> workerIcons;
+    private WorkerFactory workerFactory;
 
+    public GameObject canvas;
     private Text yearText;
     private Text taxText;
     private Text goldText;
@@ -50,7 +52,10 @@ public class GameManager : MonoBehaviour
 
     private void LoadReferences()
     {
-        GameObject canvas = GameObject.Find("Canvas");
+        workerIcons = new List<WorkerIcon>();
+        workerFactory = gameObject.AddComponent<WorkerFactory>();
+
+        canvas = GameObject.Find("Canvas");
         yearText = canvas.transform.Find("YearText").GetComponent<Text>();
         taxText = canvas.transform.Find("TaxText").GetComponent<Text>();
         goldText = canvas.transform.Find("GoldText").GetComponent<Text>();
@@ -61,7 +66,10 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         // Create main character
+        workerIcons.Add(workerFactory.GetMainCharIcon());
 
+        // Create worker menu in panel and hide
+        CreateWorkerMenu();
 
         GoToPhase(Phase.SCOUT);
     }
@@ -165,5 +173,23 @@ public class GameManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private void CreateWorkerMenu()
+    {
+        // Workers are divided into a 5x2 menu
+        int startCol1X = 585;
+        int startCol2X = 720;
+        int startY = 195;
+        int diffY = 110;
+
+        //TODO: Add paging if workers > 10
+        for (int i = 0; i < workerIcons.Count; i++)
+        {
+            int x = workerIcons.Count < 5 ? startCol1X : startCol2X;
+            int y = startY - i % 5 * diffY;
+
+            workerIcons[i].transform.localPosition = new Vector2(x, y);
+        }
     }
 }
