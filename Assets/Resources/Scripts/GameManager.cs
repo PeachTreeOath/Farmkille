@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     private int year = 1;
     private List<WorkerIcon> workerIcons;
     private WorkerFactory workerFactory;
+    private GameObject selectedUnit;
+    private SpriteRenderer selectedUnitImage;
 
     public GameObject canvas;
     private Text yearText;
@@ -55,6 +57,8 @@ public class GameManager : MonoBehaviour
     {
         workerIcons = new List<WorkerIcon>();
         workerFactory = gameObject.AddComponent<WorkerFactory>();
+        selectedUnitImage = transform.Find("SelectedUnitImage").GetComponent<SpriteRenderer>();
+        selectedUnitImage.enabled = false;
 
         canvas = GameObject.Find("Canvas");
         yearText = canvas.transform.Find("YearText").GetComponent<Text>();
@@ -95,6 +99,15 @@ public class GameManager : MonoBehaviour
         }
     }
     */
+
+    void LateUpdate()
+    {
+        if (selectedUnit != null)
+        {
+            Vector2 mouseVector = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            selectedUnitImage.transform.position = mouseVector;
+        }
+    }
 
     public void GoToPhase(Phase nextPhase)
     {
@@ -194,9 +207,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void PlaceUnitOnCursor()
+    public void PlaceUnitOnCursor(WorkerIcon workerIcon)
     {
-        GameObject selectedUnit = EventSystem.current.currentSelectedGameObject;
-
+        selectedUnit = workerIcon.gameObject;
+        selectedUnitImage.sprite = PrefabManager.instance.workerIconFab.GetComponent<SpriteRenderer>().sprite;
+        selectedUnitImage.enabled = true;
     }
+
 }

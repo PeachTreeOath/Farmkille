@@ -27,10 +27,24 @@ public class Hex : MonoBehaviour
         {
             return;
         }
-        if (GameManager.instance.phase == Phase.SCOUT && mode == HexMode.HIGHLIGHT)
+
+        switch (GameManager.instance.phase)
         {
-            GameManager.instance.RevealHexes(x, y);
+            case Phase.SCOUT:
+                if (mode == HexMode.HIGHLIGHT)
+                {
+                    GameManager.instance.RevealHexes(x, y);
+                }
+                break;
+            case Phase.PLACEMENT:
+              
+                break;
+            case Phase.ALIGNMENT:
+                break;
+            case Phase.GROW:
+                break;
         }
+ 
     }
 
     public void SetCoords(int q, int r, int s)

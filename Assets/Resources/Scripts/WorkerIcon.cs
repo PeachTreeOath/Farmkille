@@ -8,17 +8,11 @@ public class WorkerIcon : MonoBehaviour, IPointerClickHandler
 {
 
     private bool selected;
-    private Image border;
-
-    void Awake()
-    {
-
-    }
 
     private void SelectWorker(bool enabled)
     {
         selected = enabled;
-        border.enabled = enabled;
+        GameManager.instance.PlaceUnitOnCursor(this);
     }
 
     public void OnPointerClick(PointerEventData eventData)
