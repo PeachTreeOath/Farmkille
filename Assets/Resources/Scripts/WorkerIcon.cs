@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
-public class WorkerIcon : MonoBehaviour
+public class WorkerIcon : MonoBehaviour, IPointerClickHandler
 {
 
     private bool selected;
@@ -10,21 +12,19 @@ public class WorkerIcon : MonoBehaviour
 
     void Awake()
     {
-        Image[] images = transform.FindChild("Border").GetComponentsInChildren<Image>();
-        foreach (Image image in images)
-        {
-            if (image.gameObject.GetInstanceID() != gameObject.GetInstanceID())
-            {
-                border = image;
-                break;
-            }
-        }
-        border.enabled = false;
+
     }
 
-    void OnMouseDown()
+    private void SelectWorker(bool enabled)
     {
-        if (GameManager.instance.phase == Phase.PLACEMENT)
+        selected = enabled;
+        border.enabled = enabled;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        //TODO: Reinstate
+        //if (GameManager.instance.phase == Phase.PLACEMENT)
         {
             if (selected == false)
             {
@@ -35,11 +35,5 @@ public class WorkerIcon : MonoBehaviour
                 SelectWorker(false);
             }
         }
-    }
-
-    private void SelectWorker(bool enabled)
-    {
-        selected = enabled;
-        border.enabled = enabled;
     }
 }

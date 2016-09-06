@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -191,5 +192,11 @@ public class GameManager : MonoBehaviour
 
             workerIcons[i].transform.localPosition = new Vector2(x, y);
         }
+    }
+
+    public void PlaceUnitOnCursor()
+    {
+        GameObject selectedUnit = EventSystem.current.currentSelectedGameObject;
+
     }
 }
