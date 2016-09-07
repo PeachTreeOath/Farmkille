@@ -73,6 +73,11 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        // Set up UI
+        yearText.text = "YEAR " + year;
+        taxText.text = "Tax: " + 25;
+        goldText.text = "Gold: " + 0;
+
         // Create main character
         workers.Add(workerFactory.GetMainChar());
 
