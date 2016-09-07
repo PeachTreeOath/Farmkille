@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     private int year = 1;
     private List<Worker> workers;
     private WorkerFactory workerFactory;
-    private Worker selectedUnit;
+    public Worker selectedUnit;
 
     public GameObject canvas;
     private Text yearText;
@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
         goldText.text = "Gold: " + 0;
 
         // Create main character
+        workers.Add(workerFactory.GetMainChar());
         workers.Add(workerFactory.GetMainChar());
 
         // Create worker menu in panel and hide

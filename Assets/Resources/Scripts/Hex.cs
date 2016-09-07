@@ -38,15 +38,25 @@ public class Hex : MonoBehaviour
                 }
                 break;
             case Phase.PLACEMENT:
-                // Logic is set this way so a click on a blank 
-                // square with nothing on cursor won't throw error.
+                // Place unit into blank hex
                 if (mode == HexMode.HIGHLIGHT && worker == null)
                 {
                     GameManager.instance.PlaceUnitInHex(this);
                 }
-                else if(worker != null)
+                else if (worker != null)
                 {
-                    worker.UnsetHex();
+                    // Pick up unit
+                    if (GameManager.instance.selectedUnit == null)
+                    {
+                        worker.UnsetHex(false);
+                    }
+                    // Swap unit with currently selected one
+                    else
+                    {
+                        Worker tempWorker = worker;
+                        GameManager.instance.PlaceUnitInHex(this);
+                        tempWorker.UnsetHex(true);
+                    }
                 }
                 break;
             case Phase.ALIGNMENT:

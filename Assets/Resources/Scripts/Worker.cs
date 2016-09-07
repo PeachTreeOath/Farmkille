@@ -16,7 +16,7 @@ public class Worker : MonoBehaviour
         col = GetComponent<BoxCollider2D>();
     }
 
-    private void SelectWorker(bool enabled)
+    public void SelectWorker(bool enabled)
     {
         selected = enabled;
         col.enabled = !enabled; // Turn off collider so raycasts don't hit it
@@ -47,9 +47,12 @@ public class Worker : MonoBehaviour
         transform.position = newHex.transform.position;
     }
 
-    public void UnsetHex()
+    public void UnsetHex(Boolean removeRefFromHex)
     {
-        hex.worker = null;
+        if (removeRefFromHex)
+        {
+            hex.worker = null;
+        }
         hex = null;
         SelectWorker(true);
     }
