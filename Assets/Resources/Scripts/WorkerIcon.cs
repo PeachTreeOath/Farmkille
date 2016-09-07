@@ -12,7 +12,7 @@ public class WorkerIcon : MonoBehaviour, IPointerClickHandler
     private void SelectWorker(bool enabled)
     {
         selected = enabled;
-        GameManager.instance.PlaceUnitOnCursor(this);
+       // GameManager.instance.PlaceUnitOnCursor(this);
     }
 
     public void OnPointerClick(PointerEventData eventData)

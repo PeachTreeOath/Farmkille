@@ -37,7 +37,7 @@ public class Hex : MonoBehaviour
                 }
                 break;
             case Phase.PLACEMENT:
-              
+                GameManager.instance.PlaceUnitInHex(this);
                 break;
             case Phase.ALIGNMENT:
                 break;

@@ -47,6 +47,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Resource
+    uniqueID: 3545675199
+    locked: 0
+  - name: Worker
+    uniqueID: 3352636657
+    locked: 0
   - name: UI
     uniqueID: 1815354259
+    locked: 0
+  - name: MenuWorker
+    uniqueID: 2148362653
     locked: 0

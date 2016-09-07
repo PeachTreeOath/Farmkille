@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,16 +28,18 @@ public class GameManager : MonoBehaviour
     public Dictionary<Key, Hex> grid;
 
     private int year = 1;
-    private List<WorkerIcon> workerIcons;
+    private List<Worker> workers;
     private WorkerFactory workerFactory;
-    private GameObject selectedUnit;
-    private SpriteRenderer selectedUnitImage;
+    private Worker selectedUnit;
 
     public GameObject canvas;
     private Text yearText;
     private Text taxText;
     private Text goldText;
     private Text movesText;
+    private GameObject resourceParent;
+    private GameObject workerParent;
+
     private TurnButton turnButton;
 
     void Awake()
@@ -55,10 +58,8 @@ public class GameManager : MonoBehaviour
 
     private void LoadReferences()
     {
-        workerIcons = new List<WorkerIcon>();
+        workers = new List<Worker>();
         workerFactory = gameObject.AddComponent<WorkerFactory>();
-        selectedUnitImage = transform.Find("SelectedUnitImage").GetComponent<SpriteRenderer>();
-        selectedUnitImage.enabled = false;
 
         canvas = GameObject.Find("Canvas");
         yearText = canvas.transform.Find("YearText").GetComponent<Text>();
@@ -66,17 +67,20 @@ public class GameManager : MonoBehaviour
         goldText = canvas.transform.Find("GoldText").GetComponent<Text>();
         movesText = canvas.transform.Find("MovesText").GetComponent<Text>();
         turnButton = canvas.GetComponentInChildren<TurnButton>();
+        resourceParent = GameObject.Find("Resources");
+        workerParent = GameObject.Find("Workers");
     }
 
     public void StartGame()
     {
         // Create main character
-        workerIcons.Add(workerFactory.GetMainCharIcon());
+        workers.Add(workerFactory.GetMainChar());
 
         // Create worker menu in panel and hide
         CreateWorkerMenu();
 
         GoToPhase(Phase.SCOUT);
+        GoToPhase(Phase.PLACEMENT);
     }
 
     /*
@@ -102,10 +106,12 @@ public class GameManager : MonoBehaviour
 
     void LateUpdate()
     {
+        canvas.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, 0);
+
         if (selectedUnit != null)
         {
             Vector2 mouseVector = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            selectedUnitImage.transform.position = mouseVector;
+            selectedUnit.transform.position = mouseVector;
         }
     }
 
@@ -130,6 +136,7 @@ public class GameManager : MonoBehaviour
         }
 
         turnButton.GoToPhase(nextPhase);
+        phase = nextPhase;
     }
 
     private void FogAllHexes()
@@ -160,12 +167,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Used in scout phase only
+    // Used in scout phase
     private void HighlightAllHexes()
     {
         foreach (var key in grid.Keys)
         {
             grid[key].SetHighlight();
+        }
+    }
+
+    // Used in placement phase
+    public void HighlightAvailableHexes()
+    {
+        //TODO Dont place on top of crops
+        foreach (var key in grid.Keys)
+        {
+            Hex hex = grid[key];
+            if (hex.mode != HexMode.FOG)
+            {
+                hex.SetHighlight();
+            }
         }
     }
 
@@ -198,20 +219,26 @@ public class GameManager : MonoBehaviour
         int diffY = 110;
 
         //TODO: Add paging if workers > 10
-        for (int i = 0; i < workerIcons.Count; i++)
+        for (int i = 0; i < workers.Count; i++)
         {
-            int x = workerIcons.Count < 5 ? startCol1X : startCol2X;
+            int x = workers.Count < 5 ? startCol1X : startCol2X;
             int y = startY - i % 5 * diffY;
 
-            workerIcons[i].transform.localPosition = new Vector2(x, y);
+            workers[i].transform.localPosition = new Vector2(x, y);
         }
     }
 
-    public void PlaceUnitOnCursor(WorkerIcon workerIcon)
+    public void PlaceUnitOnCursor(Worker worker)
     {
-        selectedUnit = workerIcon.gameObject;
-        selectedUnitImage.sprite = PrefabManager.instance.workerIconFab.GetComponent<SpriteRenderer>().sprite;
-        selectedUnitImage.enabled = true;
+        selectedUnit = worker;
+        HighlightAvailableHexes();
     }
 
+    public void PlaceUnitInHex(Hex hex)
+    {
+        selectedUnit.transform.SetParent(workerParent.transform);
+        selectedUnit.SetHex(hex);
+        selectedUnit = null;
+        UnHighLightAllHexes();
+    }
 }
