@@ -42,7 +42,16 @@ public class Worker : MonoBehaviour
 
     public void SetHex(Hex newHex)
     {
+        newHex.worker = this;
         hex = newHex;
         transform.position = newHex.transform.position;
     }
+
+    public void UnsetHex()
+    {
+        hex.worker = null;
+        hex = null;
+        SelectWorker(true);
+    }
+
 }

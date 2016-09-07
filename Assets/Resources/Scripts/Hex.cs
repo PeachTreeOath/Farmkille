@@ -6,6 +6,7 @@ public class Hex : MonoBehaviour
 {
 
     public HexMode mode;
+    public Worker worker;
 
     public int x;
     public int y;
@@ -37,14 +38,23 @@ public class Hex : MonoBehaviour
                 }
                 break;
             case Phase.PLACEMENT:
-                GameManager.instance.PlaceUnitInHex(this);
+                // Logic is set this way so a click on a blank 
+                // square with nothing on cursor won't throw error.
+                if (mode == HexMode.HIGHLIGHT && worker == null)
+                {
+                    GameManager.instance.PlaceUnitInHex(this);
+                }
+                else if(worker != null)
+                {
+                    worker.UnsetHex();
+                }
                 break;
             case Phase.ALIGNMENT:
                 break;
             case Phase.GROW:
                 break;
         }
- 
+
     }
 
     public void SetCoords(int q, int r, int s)
