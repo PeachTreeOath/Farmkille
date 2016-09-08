@@ -1,15 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class AbstractTileEffector : MonoBehaviour {
+abstract public class AbstractTileAffector : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    // Return a list of tiles the worker affects in relation to its position
+    abstract public List<Vector2> GetAffectedTiles();
+
+    // Return a map of resources and the levels the worker provides
+    abstract public Dictionary<ResourceType, int> GetProductionMap();
 }
