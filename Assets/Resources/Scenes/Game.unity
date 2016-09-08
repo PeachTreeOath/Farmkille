@@ -193,6 +193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fogMat: {fileID: 0}
   highlightMat: {fileID: 0}
+  affectedMat: {fileID: 0}
   bgFab: {fileID: 0}
   hexFab: {fileID: 0}
   hexTransparentFab: {fileID: 0}
