@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Hex : MonoBehaviour
 {
@@ -65,6 +66,17 @@ public class Hex : MonoBehaviour
                 break;
         }
 
+    }
+
+    void OnMouseEnter()
+    {
+        Worker worker = GameManager.instance.selectedUnit;
+        if (worker != null)
+        {
+            //TODO: Check phase first
+            List<GameManager.Key> affectedTiles = worker.GetComponent<ITileAffector>().GetAffectedTiles();
+            GameManager.instance.ShowAffectedHexes(this, affectedTiles);
+        }
     }
 
     public void SetCoords(int q, int r, int s)

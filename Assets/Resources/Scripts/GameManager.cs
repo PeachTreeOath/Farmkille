@@ -207,6 +207,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ShowAffectedHexes(Hex centerHex, List<GameManager.Key> hexes)
+    {
+        foreach (GameManager.Key hexPosition in hexes)
+        {
+            Key key = new Key(hexPosition.x + centerHex.x, hexPosition.y + centerHex.y);
+            grid[key].SetAffected();
+        }
+    }
+
     private bool CheckInBounds(int x, int y)
     {
         if (x >= -hexRadius && x <= hexRadius && y >= -hexRadius && y <= hexRadius)

@@ -22,6 +22,7 @@ GameObject:
   - 212: {fileID: 212000012907766626}
   - 114: {fileID: 114000013457553906}
   - 61: {fileID: 61000012475551708}
+  - 114: {fileID: 114000014175424268}
   m_Layer: 0
   m_Name: Worker
   m_TagString: Untagged
@@ -68,6 +69,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hex: {fileID: 0}
+--- !u!114 &114000014175424268
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012238483148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78d7a22887cd8246a2e37b26cc424f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 1
 --- !u!212 &212000012907766626
 SpriteRenderer:
   m_ObjectHideFlags: 1
