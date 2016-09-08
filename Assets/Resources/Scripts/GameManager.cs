@@ -246,5 +246,6 @@ public class GameManager : MonoBehaviour
         selectedUnit.SetHex(hex);
         selectedUnit = null;
         UnHighLightAllHexes();
+        //TODO: Add watering calculations each time you place
     }
 }

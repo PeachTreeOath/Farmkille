@@ -110,4 +110,10 @@ public class Hex : MonoBehaviour
         mode = HexMode.HIGHLIGHT;
     }
 
+    public void SetAffected()
+    {
+        ShowSprite(true);
+        spriteRenderer.material = PrefabManager.instance.affectedMat;
+        mode = HexMode.AFFECTED;
+    }
 }
