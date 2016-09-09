@@ -14,13 +14,28 @@ public class Hex : MonoBehaviour
     public int z;
 
     private SpriteRenderer spriteRenderer;
+    private HashSet<Material> matSet;
+    private Material normalMat;
+    private Material fogMat;
+    private Material highlightMat;
+    private Material affectedMat;
+    private Dictionary<HexMode, Material> matMap;
 
-    void Start()
+    public void Init()
     {
-        if (spriteRenderer == null)
-        {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-        }
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        matSet = new HashSet<Material>();
+        matMap = new Dictionary<HexMode, Material>();
+        normalMat = PrefabManager.instance.normalMat;
+        fogMat = PrefabManager.instance.fogMat;
+        highlightMat = PrefabManager.instance.highlightMat;
+        affectedMat = PrefabManager.instance.affectedMat;
+        matMap.Add(HexMode.NORMAL, normalMat);
+        matMap.Add(HexMode.FOG, fogMat);
+        matMap.Add(HexMode.HIGHLIGHT, highlightMat);
+        matMap.Add(HexMode.AFFECTED, affectedMat);
+
+        SetHexMode(HexMode.NORMAL);
     }
 
     void OnMouseDown()
@@ -93,39 +108,40 @@ public class Hex : MonoBehaviour
         z = -q - r;
     }
 
-    private void ShowSprite(bool enable)
+    public void SetHexMode(HexMode mode)
     {
-        if (spriteRenderer == null)
+        matSet.Add(matMap[mode]);
+        SetHighestHexMode();
+    }
+
+    public void RemoveHexMode(HexMode mode)
+    {
+        matSet.Remove(matMap[mode]);
+        SetHighestHexMode();
+    }
+
+    private void SetHighestHexMode()
+    {
+        if (matSet.Contains(fogMat))
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            mode = HexMode.FOG;
+            spriteRenderer.material = fogMat;
         }
-        spriteRenderer.enabled = enable;
-    }
+        else if (matSet.Contains(affectedMat))
+        {
+            mode = HexMode.AFFECTED;
+            spriteRenderer.material = affectedMat;
+        }
+        else if (matSet.Contains(highlightMat))
+        {
+            mode = HexMode.HIGHLIGHT;
+            spriteRenderer.material = highlightMat;
+        }
+        else if (matSet.Contains(normalMat))
+        {
+            mode = HexMode.NORMAL;
+            spriteRenderer.material = normalMat;
+        }
 
-    public void SetNormal()
-    {
-        ShowSprite(false);
-        mode = HexMode.NORMAL;
-    }
-
-    public void SetFog()
-    {
-        ShowSprite(true);
-        spriteRenderer.material = PrefabManager.instance.fogMat;
-        mode = HexMode.FOG;
-    }
-
-    public void SetHighlight()
-    {
-        ShowSprite(true);
-        spriteRenderer.material = PrefabManager.instance.highlightMat;
-        mode = HexMode.HIGHLIGHT;
-    }
-
-    public void SetAffected()
-    {
-        ShowSprite(true);
-        spriteRenderer.material = PrefabManager.instance.affectedMat;
-        mode = HexMode.AFFECTED;
     }
 }

@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public Dictionary<Key, Hex> grid;
 
     private int year = 1;
+    private int moves = 2;
     private List<Worker> workers;
     private WorkerFactory workerFactory;
     public Worker selectedUnit;
@@ -124,12 +125,13 @@ public class GameManager : MonoBehaviour
     public void GoToPhase(Phase nextPhase)
     {
         // Revert phase first
-        UnHighLightAllHexes();
+        RemoveAllHexes(HexMode.AFFECTED);
+        RemoveAllHexes(HexMode.HIGHLIGHT);
 
         switch (nextPhase)
         {
             case Phase.SCOUT:
-                FogAllHexes();
+                SetAllHexes(HexMode.FOG);
                 RevealHexes(0, 0);
                 break;
             case Phase.PLACEMENT:
@@ -145,74 +147,62 @@ public class GameManager : MonoBehaviour
         phase = nextPhase;
     }
 
-    private void FogAllHexes()
-    {
-        foreach (var key in grid.Keys)
-        {
-            grid[key].SetFog();
-        }
-    }
-
     public void RevealHexes(int x, int y)
     {
-        HighLightHex(x, y);
-        HighLightHex(x - 1, y);
-        HighLightHex(x - 1, y + 1);
-        HighLightHex(x, y - 1);
-        HighLightHex(x, y + 1);
-        HighLightHex(x + 1, y - 1);
-        HighLightHex(x + 1, y);
+        RemoveHex(x, y, HexMode.FOG);
+        RemoveHex(x - 1, y, HexMode.FOG);
+        RemoveHex(x - 1, y + 1, HexMode.FOG);
+        RemoveHex(x, y - 1, HexMode.FOG);
+        RemoveHex(x, y + 1, HexMode.FOG);
+        RemoveHex(x + 1, y - 1, HexMode.FOG);
+        RemoveHex(x + 1, y, HexMode.FOG);
     }
 
-    private void HighLightHex(int x, int y)
+    private void SetHex(int x, int y, HexMode mode)
     {
         Hex hex;
         if (grid.TryGetValue(new Key(x, y), out hex))
         {
-            hex.SetHighlight();
+            hex.SetHexMode(mode);
         }
     }
 
-    // Used in scout phase
-    private void HighlightAllHexes()
+    private void RemoveHex(int x, int y, HexMode mode)
     {
-        foreach (var key in grid.Keys)
+        Hex hex;
+        if (grid.TryGetValue(new Key(x, y), out hex))
         {
-            grid[key].SetHighlight();
+            hex.RemoveHexMode(mode);
         }
     }
 
-    // Used in placement phase
-    public void HighlightAvailableHexes()
+    private void SetAllHexes(HexMode mode)
     {
-        //TODO Dont place on top of crops
         foreach (var key in grid.Keys)
         {
-            Hex hex = grid[key];
-            if (hex.mode != HexMode.FOG)
-            {
-                hex.SetHighlight();
-            }
+            grid[key].SetHexMode(mode);
         }
     }
 
-    private void UnHighLightAllHexes()
+    private void RemoveAllHexes(HexMode mode)
     {
         foreach (var key in grid.Keys)
         {
-            if (grid[key].mode == HexMode.HIGHLIGHT)
-            {
-                grid[key].SetNormal();
-            }
+            grid[key].RemoveHexMode(mode);
         }
     }
 
     public void ShowAffectedHexes(Hex centerHex, List<GameManager.Key> hexes)
     {
+        RemoveAllHexes(HexMode.AFFECTED);
         foreach (GameManager.Key hexPosition in hexes)
         {
             Key key = new Key(hexPosition.x + centerHex.x, hexPosition.y + centerHex.y);
-            grid[key].SetAffected();
+            Hex hex;
+            if (grid.TryGetValue(key, out hex))
+            {
+                hex.SetHexMode(HexMode.AFFECTED);
+            }
         }
     }
 
@@ -246,7 +236,7 @@ public class GameManager : MonoBehaviour
     public void PlaceUnitOnCursor(Worker worker)
     {
         selectedUnit = worker;
-        HighlightAvailableHexes();
+        SetAllHexes(HexMode.HIGHLIGHT);
     }
 
     public void PlaceUnitInHex(Hex hex)
@@ -254,7 +244,8 @@ public class GameManager : MonoBehaviour
         selectedUnit.transform.SetParent(workerParent.transform);
         selectedUnit.SetHex(hex);
         selectedUnit = null;
-        UnHighLightAllHexes();
+        RemoveAllHexes(HexMode.HIGHLIGHT);
+        RemoveAllHexes(HexMode.AFFECTED);
         //TODO: Add watering calculations each time you place
     }
 }

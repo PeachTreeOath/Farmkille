@@ -69,6 +69,7 @@ public class MapGenerator : MonoBehaviour
 
                 Hex hex = Instantiate<GameObject>(hexPrefab).GetComponent<Hex>();
                 hex.transform.SetParent(parentTransform);
+                hex.Init();
                 hex.SetCoords(i, j);
 
                 float xOffset = (i - j) * width * 0.5f;
