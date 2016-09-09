@@ -23,7 +23,6 @@ public class Worker : MonoBehaviour
         GameManager.instance.PlaceUnitOnCursor(this);
     }
 
-    //public void OnPointerClick(PointerEventData eventData)
     void OnMouseDown()
     {
         //TODO: Reinstate
@@ -47,6 +46,8 @@ public class Worker : MonoBehaviour
         transform.position = newHex.transform.position;
     }
 
+    // Removes hex reference from worker, but only removes worker reference from
+    // hex if removeRefFromHex is true so that swapping can properly occur 
     public void UnsetHex(Boolean removeRefFromHex)
     {
         if (removeRefFromHex)

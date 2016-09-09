@@ -191,6 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92a3c3857dfa108449b3b33aa8cfe2c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normalMat: {fileID: 0}
   fogMat: {fileID: 0}
   highlightMat: {fileID: 0}
   affectedMat: {fileID: 0}

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PrefabManager : MonoBehaviour {
+public class PrefabManager : MonoBehaviour
+{
 
     public static PrefabManager instance;
 
@@ -13,15 +14,16 @@ public class PrefabManager : MonoBehaviour {
     public GameObject bgFab;
     public GameObject hexFab;
     public GameObject hexTransparentFab;
-    public GameObject workerFab;
+    public GameObject worker1Fab;
+    public GameObject worker2Fab;
 
     void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
-        else if(instance != this)
+        else if (instance != this)
         {
             Destroy(gameObject);
         }
@@ -39,7 +41,7 @@ public class PrefabManager : MonoBehaviour {
         bgFab = Resources.Load<GameObject>("Prefabs/BGTile");
         hexFab = Resources.Load<GameObject>("Prefabs/Hex");
         hexTransparentFab = Resources.Load<GameObject>("Prefabs/HexTransparent");
-        workerFab = Resources.Load<GameObject>("Prefabs/Worker");
+        worker1Fab = Resources.Load<GameObject>("Prefabs/Worker1");
+        worker2Fab = Resources.Load<GameObject>("Prefabs/Worker2");
     }
-
 }

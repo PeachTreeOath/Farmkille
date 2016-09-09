@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     private List<Worker> workers;
     private WorkerFactory workerFactory;
     public Worker selectedUnit;
+    public Hex currentHoveredHex;
 
     public GameObject canvas;
     private Text yearText;
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
     private GameObject workerParent;
 
     private TurnButton turnButton;
+
 
     void Awake()
     {
@@ -79,9 +81,9 @@ public class GameManager : MonoBehaviour
         taxText.text = "Tax: " + 25;
         goldText.text = "Gold: " + 0;
 
-        // Create main character
-        workers.Add(workerFactory.GetMainChar());
-        workers.Add(workerFactory.GetMainChar());
+        // Create starting workers
+        workers.Add(workerFactory.CreateWorker1());
+        workers.Add(workerFactory.CreateWorker2());
 
         // Create worker menu in panel and hide
         CreateWorkerMenu();
@@ -131,7 +133,8 @@ public class GameManager : MonoBehaviour
         switch (nextPhase)
         {
             case Phase.SCOUT:
-                SetAllHexes(HexMode.FOG);
+                //TODO: Bring back fog of war
+                //SetAllHexes(HexMode.FOG);
                 RevealHexes(0, 0);
                 break;
             case Phase.PLACEMENT:
@@ -192,12 +195,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ShowAffectedHexes(Hex centerHex, List<GameManager.Key> hexes)
+    public void ShowAffectedHexes()
     {
-        RemoveAllHexes(HexMode.AFFECTED);
-        foreach (GameManager.Key hexPosition in hexes)
+        if (selectedUnit == null)
         {
-            Key key = new Key(hexPosition.x + centerHex.x, hexPosition.y + centerHex.y);
+            return;
+        }
+
+        RemoveAllHexes(HexMode.AFFECTED);
+        List<GameManager.Key> affectedTiles = selectedUnit.GetComponent<ITileAffector>().GetAffectedTiles(currentHoveredHex);
+
+        foreach (GameManager.Key hexPosition in affectedTiles)
+        {
+            Key key = new Key(hexPosition.x, hexPosition.y);
             Hex hex;
             if (grid.TryGetValue(key, out hex))
             {

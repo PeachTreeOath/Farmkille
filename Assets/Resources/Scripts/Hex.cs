@@ -21,6 +21,11 @@ public class Hex : MonoBehaviour
     private Material affectedMat;
     private Dictionary<HexMode, Material> matMap;
 
+    public static int HexDistance(Hex a, Hex b)
+    {
+        return (int)((Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y) + Mathf.Abs(a.z - b.z)) / 2);
+    }
+
     public void Init()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -64,15 +69,16 @@ public class Hex : MonoBehaviour
                     // Pick up unit
                     if (GameManager.instance.selectedUnit == null)
                     {
-                        worker.UnsetHex(false);
+                        worker.UnsetHex(true);
                     }
                     // Swap unit with currently selected one
                     else
                     {
                         Worker tempWorker = worker;
                         GameManager.instance.PlaceUnitInHex(this);
-                        tempWorker.UnsetHex(true);
+                        tempWorker.UnsetHex(false);
                     }
+                    GameManager.instance.ShowAffectedHexes();
                 }
                 break;
             case Phase.ALIGNMENT:
@@ -85,13 +91,8 @@ public class Hex : MonoBehaviour
 
     void OnMouseEnter()
     {
-        Worker worker = GameManager.instance.selectedUnit;
-        if (worker != null)
-        {
-            //TODO: Check phase first
-            List<GameManager.Key> affectedTiles = worker.GetComponent<ITileAffector>().GetAffectedTiles();
-            GameManager.instance.ShowAffectedHexes(this, affectedTiles);
-        }
+        GameManager.instance.currentHoveredHex = this;
+        GameManager.instance.ShowAffectedHexes();
     }
 
     public void SetCoords(int q, int r, int s)
