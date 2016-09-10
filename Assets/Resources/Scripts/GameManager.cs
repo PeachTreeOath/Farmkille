@@ -85,7 +85,14 @@ public class GameManager : MonoBehaviour
 
         // Create starting workers
         workers.Add(workerFactory.CreateWorker1());
-        workers.Add(workerFactory.CreateWorker2());
+        workers.Add(workerFactory.CreateWorker1());
+        workers.Add(workerFactory.CreateWorker1());
+        workers.Add(workerFactory.CreateWorker1());
+        workers.Add(workerFactory.CreateWorker1());
+        workers.Add(workerFactory.CreateWorker1());
+        workers.Add(workerFactory.CreateWorker1());
+        workers.Add(workerFactory.CreateWorker1());
+        //workers.Add(workerFactory.CreateWorker2());
 
         // Create worker menu in panel and hide
         CreateWorkerMenu();
@@ -236,16 +243,16 @@ public class GameManager : MonoBehaviour
     private void CreateWorkerMenu()
     {
         // Workers are divided into a 5x2 menu
-        int startCol1X = 585;
-        int startCol2X = 720;
-        int startY = 195;
-        int diffY = 110;
+        int startX = 540;
+        int startY = 185;
+        int diffX = 170;
+        int diffY = 170;
 
         //TODO: Add paging if workers > 10
         for (int i = 0; i < workers.Count; i++)
         {
-            int x = workers.Count < 5 ? startCol1X : startCol2X;
-            int y = startY - i % 5 * diffY;
+            int x = startX + diffX * (i / 3);
+            int y = startY - diffY * (i % 3);
 
             workers[i].transform.localPosition = new Vector2(x, y);
         }

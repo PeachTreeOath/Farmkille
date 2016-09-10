@@ -15,6 +15,7 @@ public class PrefabManager : MonoBehaviour
     public GameObject hexFab;
     public GameObject hexTransparentFab;
     public GameObject tokenFab;
+    public GameObject workerArrowFab;
 
     public GameObject worker1Fab;
     public GameObject worker2Fab;
@@ -49,6 +50,7 @@ public class PrefabManager : MonoBehaviour
         hexFab = Resources.Load<GameObject>("Prefabs/Hex");
         hexTransparentFab = Resources.Load<GameObject>("Prefabs/HexTransparent");
         tokenFab = Resources.Load<GameObject>("Prefabs/Token");
+        workerArrowFab = Resources.Load<GameObject>("Prefabs/WorkerArrow");
 
         worker1Fab = Resources.Load<GameObject>("Prefabs/Worker1");
         worker2Fab = Resources.Load<GameObject>("Prefabs/Worker2");
