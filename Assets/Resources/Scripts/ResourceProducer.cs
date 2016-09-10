@@ -10,14 +10,9 @@ public class ResourceProducer : MonoBehaviour {
 
     private Dictionary<ResourceType, int> productionMap;
 
-    void Start()
+    void Awake()
     {
-        SetProductionMap();
-    }
-
-    public void SetProductionMap()
-    {
-
+        productionMap = new Dictionary<ResourceType, int>();
     }
 
     // Return the value of the resource in the map
@@ -26,5 +21,10 @@ public class ResourceProducer : MonoBehaviour {
         int val = 0;
         productionMap.TryGetValue(type, out val);
         return val;
+    }
+
+    public Dictionary<ResourceType, int> GetProductionMap()
+    {
+        return productionMap;
     }
 }

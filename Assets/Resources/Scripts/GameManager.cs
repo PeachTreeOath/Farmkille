@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
 
     private int year = 1;
     private int moves = 2;
+    private List<Hex> cropHexes;
     private List<Worker> workers;
     private WorkerFactory workerFactory;
     public Worker selectedUnit;
@@ -202,10 +203,16 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        RemoveAllHexes(HexMode.AFFECTED);
-        List<GameManager.Key> affectedTiles = selectedUnit.GetComponent<ITileAffector>().GetAffectedTiles(currentHoveredHex);
+        ITileAffector affector = selectedUnit.GetComponent<ITileAffector>();
+        if (affector == null)
+        {
+            return;
+        }
 
-        foreach (GameManager.Key hexPosition in affectedTiles)
+        RemoveAllHexes(HexMode.AFFECTED);
+        List<Key> affectedTiles = affector.GetAffectedTiles(currentHoveredHex);
+
+        foreach (Key hexPosition in affectedTiles)
         {
             Key key = new Key(hexPosition.x, hexPosition.y);
             Hex hex;
@@ -256,6 +263,43 @@ public class GameManager : MonoBehaviour
         selectedUnit = null;
         RemoveAllHexes(HexMode.HIGHLIGHT);
         RemoveAllHexes(HexMode.AFFECTED);
-        //TODO: Add watering calculations each time you place
+        CheckCropNeeds();
+    }
+
+    public void CheckCropNeeds()
+    {
+        // Clear all needs first
+        foreach (Hex cropHex in cropHexes)
+        {
+            cropHex.crop.ResetNeeds();
+        }
+
+        // Go through all workers and add resources to crop
+        foreach (Worker worker in workers)
+        {
+            ITileAffector affector = worker.GetComponent<ITileAffector>();
+            if (affector == null)
+            {
+                continue;
+            }
+
+            List<Key> affectedTiles = affector.GetAffectedTiles(currentHoveredHex);
+
+            foreach (Key hexPosition in affectedTiles)
+            {
+                Key key = new Key(hexPosition.x, hexPosition.y);
+                Hex hex;
+                if (grid.TryGetValue(key, out hex))
+                {
+                    Crop crop = hex.crop;
+
+                    // If crop exists in hex, apply resources
+                    if (crop != null)
+                    {
+                        crop.ApplyResources(worker.GetComponent<ResourceProducer>().GetProductionMap());
+                    }
+                }
+            }
+        }
     }
 }

@@ -7,7 +7,8 @@ public class Hex : MonoBehaviour
 {
 
     public HexMode mode;
-    public Worker worker;
+    public Worker worker; // Worker sitting on hex
+    public Crop crop;
 
     public int x;
     public int y;
@@ -40,6 +41,7 @@ public class Hex : MonoBehaviour
         matMap.Add(HexMode.HIGHLIGHT, highlightMat);
         matMap.Add(HexMode.AFFECTED, affectedMat);
 
+        affectingWorkerList = new List<Worker>();
         SetHexMode(HexMode.NORMAL);
     }
 
