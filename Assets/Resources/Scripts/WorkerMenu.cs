@@ -3,18 +3,10 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-public class WorkerMenu : MonoBehaviour {
+public class WorkerMenu : MonoBehaviour
+{
 
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    private List<Worker> workers;
 
     public void CreateWorkerMenu(List<Worker> workers)
     {
@@ -34,7 +26,23 @@ public class WorkerMenu : MonoBehaviour {
 
         WorkerArrow lArrow = CreateWorkerLeftArrow();
         WorkerArrow rArrow = CreateWorkerRightArrow();
-        //TODO: Position these correctly
+        lArrow.transform.localPosition = new Vector2(575, -275);
+        rArrow.transform.localPosition = new Vector2(675, -275);
+
+        this.workers = workers;
+    }
+
+    public void PrevPage()
+    {
+        foreach (Worker worker in workers)
+        {
+            worker.transform.localPosition -= new Vector3(100, 0);
+        }
+    }
+
+    public void NextPage()
+    {
+        throw new NotImplementedException();
     }
 
     private WorkerArrow CreateWorkerLeftArrow()
