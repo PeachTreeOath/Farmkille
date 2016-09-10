@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
     private void LoadReferences()
     {
         workers = new List<Worker>();
+        cropHexes = new List<Hex>();
         workerFactory = gameObject.AddComponent<WorkerFactory>();
 
         canvas = GameObject.Find("Canvas");

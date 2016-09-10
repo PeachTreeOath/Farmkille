@@ -40,8 +40,7 @@ public class Hex : MonoBehaviour
         matMap.Add(HexMode.FOG, fogMat);
         matMap.Add(HexMode.HIGHLIGHT, highlightMat);
         matMap.Add(HexMode.AFFECTED, affectedMat);
-
-        affectingWorkerList = new List<Worker>();
+        
         SetHexMode(HexMode.NORMAL);
     }
 
