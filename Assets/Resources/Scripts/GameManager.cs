@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     private List<Hex> cropHexes;
     private List<Worker> workers;
     private WorkerFactory workerFactory;
+    private WorkerMenu workerMenu;
+
     public Worker selectedUnit;
     public Hex currentHoveredHex;
 
@@ -242,20 +244,8 @@ public class GameManager : MonoBehaviour
 
     private void CreateWorkerMenu()
     {
-        // Workers are divided into a 5x2 menu
-        int startX = 540;
-        int startY = 185;
-        int diffX = 170;
-        int diffY = 170;
-
-        //TODO: Add paging if workers > 10
-        for (int i = 0; i < workers.Count; i++)
-        {
-            int x = startX + diffX * (i / 3);
-            int y = startY - diffY * (i % 3);
-
-            workers[i].transform.localPosition = new Vector2(x, y);
-        }
+        workerMenu = gameObject.AddComponent<WorkerMenu>();
+        workerMenu.CreateWorkerMenu(workers);
     }
 
     public void PlaceUnitOnCursor(Worker worker)
