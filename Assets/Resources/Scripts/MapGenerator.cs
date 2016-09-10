@@ -124,6 +124,7 @@ public class MapGenerator : MonoBehaviour
                     newCrop.transform.SetParent(hex.transform);
                     newCrop.transform.localPosition = Vector2.zero;
                     hex.crop = newCrop;
+                    GameManager.instance.RegisterCropHex(hex);
                     continue;
                 }
                 attempts++;

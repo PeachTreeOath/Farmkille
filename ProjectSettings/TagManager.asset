@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Invisible
+    uniqueID: 3688924735
+    locked: 0
   - name: BG
     uniqueID: 707614397
     locked: 0
@@ -46,6 +49,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Token
+    uniqueID: 687190077
     locked: 0
   - name: Crop
     uniqueID: 3545675199

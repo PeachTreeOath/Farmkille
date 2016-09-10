@@ -8,32 +8,39 @@ public class Crop : MonoBehaviour
 
     public float tokenSpacing = 0.375f;
 
-    public int waterNeed;
-    public int fertilizerNeed;
-    public int lightNeed;
-    public int pesticideNeed;
+    public int waterValue;
+    public int fertilizerValue;
+    public int lightValue;
+    public int pesticideValue;
 
-    public int currWaterNeed;
-    public int currFertilizerNeed;
-    public int currLightNeed;
-    public int currPesticideNeed;
+    public int currWaterValue;
+    public int currFertilizerValue;
+    public int currLightValue;
+    public int currPesticideValue;
 
-    private List<Token> tokens;
+    private TokenDisplayer tokenDisplayer;
 
-    // Use this for initialization
     void Start()
     {
-        tokens = new List<Token>();
         ResetNeeds();
-        CreateTokens();
     }
 
     public void ResetNeeds()
     {
-        currWaterNeed = waterNeed;
-        currFertilizerNeed = fertilizerNeed;
-        currLightNeed = lightNeed;
-        currPesticideNeed = pesticideNeed;
+        currWaterValue = waterValue;
+        currFertilizerValue = fertilizerValue;
+        currLightValue = lightValue;
+        currPesticideValue = pesticideValue;
+
+        if (tokenDisplayer != null)
+        {
+            tokenDisplayer.UpdateTokens(waterValue, fertilizerValue, lightValue, pesticideValue);
+        }
+        else
+        {
+            tokenDisplayer = gameObject.AddComponent<TokenDisplayer>();
+            tokenDisplayer.CreateTokens(waterValue, fertilizerValue, lightValue, pesticideValue, tokenSpacing);
+        }
     }
 
     public void ApplyResources(Dictionary<ResourceType, int> dictionary)
@@ -42,90 +49,25 @@ public class Crop : MonoBehaviour
 
         if (dictionary.TryGetValue(ResourceType.WATER, out value))
         {
-            currWaterNeed = Mathf.Clamp(currWaterNeed - value, 0, int.MaxValue);
+            currWaterValue = Mathf.Clamp(currWaterValue - value, 0, int.MaxValue);
         }
 
         if (dictionary.TryGetValue(ResourceType.FERTILIZER, out value))
         {
-            currFertilizerNeed = Mathf.Clamp(currFertilizerNeed - value, 0, int.MaxValue);
+            currFertilizerValue = Mathf.Clamp(currFertilizerValue - value, 0, int.MaxValue);
         }
 
         if (dictionary.TryGetValue(ResourceType.LIGHT, out value))
         {
-            currLightNeed = Mathf.Clamp(currLightNeed - value, 0, int.MaxValue);
+            currLightValue = Mathf.Clamp(currLightValue - value, 0, int.MaxValue);
         }
 
         if (dictionary.TryGetValue(ResourceType.PESTICIDE, out value))
         {
-            currPesticideNeed = Mathf.Clamp(currPesticideNeed - value, 0, int.MaxValue);
+            currPesticideValue = Mathf.Clamp(currPesticideValue - value, 0, int.MaxValue);
         }
 
-        UpdateTokens();
+        tokenDisplayer.UpdateTokens(currWaterValue, currFertilizerValue, currLightValue, currPesticideValue);
     }
 
-    private void CreateTokens()
-    {
-        // Position of tokens is clockwise starting on the bottom
-        if (waterNeed > 0)
-        {
-            Token token = Instantiate<GameObject>(PrefabManager.instance.tokenFab).GetComponent<Token>();
-            token.transform.SetParent(transform);
-            token.transform.localPosition = new Vector2(0, -tokenSpacing);
-            token.SetType(ResourceType.WATER);
-            tokens.Add(token);
-        }
-
-        if (fertilizerNeed > 0)
-        {
-            Token token = Instantiate<GameObject>(PrefabManager.instance.tokenFab).GetComponent<Token>();
-            token.transform.SetParent(transform);
-            token.transform.localPosition = new Vector2(-tokenSpacing, 0);
-            token.SetType(ResourceType.FERTILIZER);
-            tokens.Add(token);
-        }
-
-        if (lightNeed > 0)
-        {
-            Token token = Instantiate<GameObject>(PrefabManager.instance.tokenFab).GetComponent<Token>();
-            token.transform.SetParent(transform);
-            token.transform.localPosition = new Vector2(0, tokenSpacing);
-            token.SetType(ResourceType.LIGHT);
-            tokens.Add(token);
-        }
-
-        if (pesticideNeed > 0)
-        {
-            Token token = Instantiate<GameObject>(PrefabManager.instance.tokenFab).GetComponent<Token>();
-            token.transform.SetParent(transform);
-            token.transform.localPosition = new Vector2(tokenSpacing, 0);
-            token.SetType(ResourceType.PESTICIDE);
-            tokens.Add(token);
-        }
-
-        UpdateTokens();
-    }
-
-    private void UpdateTokens()
-    {
-        foreach (Token token in tokens)
-        {
-            int currNeed = 0;
-            switch (token.type)
-            {
-                case ResourceType.WATER:
-                    currNeed = currWaterNeed;
-                    break;
-                case ResourceType.FERTILIZER:
-                    currNeed = currFertilizerNeed;
-                    break;
-                case ResourceType.LIGHT:
-                    currNeed = currLightNeed;
-                    break;
-                case ResourceType.PESTICIDE:
-                    currNeed = currPesticideNeed;
-                    break;
-            }
-            token.SetValueText(currNeed);
-        }
-    }
 }

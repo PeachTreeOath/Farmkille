@@ -53,14 +53,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tokenSpacing: 0.375
-  waterNeed: 1
-  fertilizerNeed: 1
-  lightNeed: 1
-  pesticideNeed: 1
-  currWaterNeed: 0
-  currFertilizerNeed: 0
-  currLightNeed: 0
-  currPesticideNeed: 0
+  waterValue: 1
+  fertilizerValue: 1
+  lightValue: 1
+  pesticideValue: 1
+  currWaterValue: 0
+  currFertilizerValue: 0
+  currLightValue: 0
+  currPesticideValue: 0
 --- !u!212 &212000013784677238
 SpriteRenderer:
   m_ObjectHideFlags: 1

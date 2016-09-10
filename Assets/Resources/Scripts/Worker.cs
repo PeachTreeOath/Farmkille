@@ -10,10 +10,20 @@ public class Worker : MonoBehaviour
 
     private bool selected;
     private BoxCollider2D col;
+    private ResourceProducer producer; // Producer can be null if it doesn't actually produce resources (ie. friendly buffer)
 
     void Awake()
     {
         col = GetComponent<BoxCollider2D>();
+    }
+
+    void Start()
+    {
+        producer = GetComponent<ResourceProducer>();
+        if (producer != null)
+        {
+            producer.SetTokenLayer(TokenDisplayer.TokenLayer.UI);
+        }
     }
 
     public void SelectWorker(bool enabled)
@@ -21,6 +31,7 @@ public class Worker : MonoBehaviour
         selected = enabled;
         col.enabled = !enabled; // Turn off collider so raycasts don't hit it
         GameManager.instance.PlaceUnitOnCursor(this);
+        producer.SetTokenLayer(TokenDisplayer.TokenLayer.UI);
     }
 
     void OnMouseDown()
@@ -44,6 +55,10 @@ public class Worker : MonoBehaviour
         newHex.worker = this;
         hex = newHex;
         transform.position = newHex.transform.position;
+        if (producer != null)
+        {
+            producer.SetTokenLayer(TokenDisplayer.TokenLayer.Invisible);
+        }
     }
 
     // Removes hex reference from worker, but only removes worker reference from
@@ -57,5 +72,4 @@ public class Worker : MonoBehaviour
         hex = null;
         SelectWorker(true);
     }
-
 }

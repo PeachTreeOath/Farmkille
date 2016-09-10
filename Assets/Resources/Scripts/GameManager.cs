@@ -255,6 +255,7 @@ public class GameManager : MonoBehaviour
     {
         selectedUnit = worker;
         SetAllHexes(HexMode.HIGHLIGHT);
+        CheckCropNeeds();
     }
 
     public void PlaceUnitInHex(Hex hex)
@@ -265,6 +266,11 @@ public class GameManager : MonoBehaviour
         RemoveAllHexes(HexMode.HIGHLIGHT);
         RemoveAllHexes(HexMode.AFFECTED);
         CheckCropNeeds();
+    }
+
+    public void RegisterCropHex(Hex hex)
+    {
+        cropHexes.Add(hex);
     }
 
     public void CheckCropNeeds()
@@ -279,7 +285,7 @@ public class GameManager : MonoBehaviour
         foreach (Worker worker in workers)
         {
             // Don't bother if not deployed
-            if(worker.hex == null)
+            if (worker.hex == null)
             {
                 continue;
             }
@@ -291,7 +297,7 @@ public class GameManager : MonoBehaviour
                 continue;
             }
 
-            List<Key> affectedTiles = affector.GetAffectedTiles(currentHoveredHex);
+            List<Key> affectedTiles = affector.GetAffectedTiles(worker.hex);
 
             foreach (Key hexPosition in affectedTiles)
             {
