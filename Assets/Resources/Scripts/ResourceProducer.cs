@@ -2,21 +2,29 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public abstract class ResourceProducer {
+public class ResourceProducer : MonoBehaviour {
 
-    protected Dictionary<ResourceType, int> productionMap;
+    public int waterValue;
+    public int fertilizerValue;
+    public int lightValue;
+
+    private Dictionary<ResourceType, int> productionMap;
 
     void Start()
     {
         SetProductionMap();
     }
 
-    // Set up production values in Start()
-    abstract protected void SetProductionMap();
-
-    // Return a map of resources and the levels the worker provides
-    public Dictionary<ResourceType, int> GetProductionMap()
+    public void SetProductionMap()
     {
-        return productionMap;
+
+    }
+
+    // Return the value of the resource in the map
+    public int GetProductionValue(ResourceType type)
+    {
+        int val = 0;
+        productionMap.TryGetValue(type, out val);
+        return val;
     }
 }

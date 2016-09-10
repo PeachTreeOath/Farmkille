@@ -23,6 +23,7 @@ GameObject:
   - 114: {fileID: 114000010621922418}
   - 61: {fileID: 61000012265207152}
   - 114: {fileID: 114000012266155498}
+  - 114: {fileID: 114000011773433252}
   m_Layer: 0
   m_Name: Worker2
   m_TagString: Untagged
@@ -69,6 +70,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hex: {fileID: 0}
+--- !u!114 &114000011773433252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012804647204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ee3223b2d09ab44a8eeb6af94b3ce88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterValue: 0
+  fertilizerValue: 1
+  lightValue: 0
 --- !u!114 &114000012266155498
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -198,7 +198,11 @@ MonoBehaviour:
   bgFab: {fileID: 0}
   hexFab: {fileID: 0}
   hexTransparentFab: {fileID: 0}
-  workerFab: {fileID: 0}
+  worker1Fab: {fileID: 0}
+  worker2Fab: {fileID: 0}
+  cropAppleFab: {fileID: 0}
+  cropBananaFab: {fileID: 0}
+  cropCherriesFab: {fileID: 0}
 --- !u!4 &524783432
 Transform:
   m_ObjectHideFlags: 0
@@ -480,6 +484,7 @@ MonoBehaviour:
   hexRadius: 5
   phase: 0
   selectedUnit: {fileID: 0}
+  currentHoveredHex: {fileID: 0}
   canvas: {fileID: 0}
 --- !u!114 &716439444
 MonoBehaviour:

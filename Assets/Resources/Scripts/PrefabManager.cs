@@ -14,8 +14,13 @@ public class PrefabManager : MonoBehaviour
     public GameObject bgFab;
     public GameObject hexFab;
     public GameObject hexTransparentFab;
+
     public GameObject worker1Fab;
     public GameObject worker2Fab;
+
+    public GameObject cropAppleFab;
+    public GameObject cropBananaFab;
+    public GameObject cropCherriesFab;
 
     void Awake()
     {
@@ -41,7 +46,13 @@ public class PrefabManager : MonoBehaviour
         bgFab = Resources.Load<GameObject>("Prefabs/BGTile");
         hexFab = Resources.Load<GameObject>("Prefabs/Hex");
         hexTransparentFab = Resources.Load<GameObject>("Prefabs/HexTransparent");
+
         worker1Fab = Resources.Load<GameObject>("Prefabs/Worker1");
         worker2Fab = Resources.Load<GameObject>("Prefabs/Worker2");
+
+        cropAppleFab = Resources.Load<GameObject>("Prefabs/CropApple");
+        cropBananaFab = Resources.Load<GameObject>("Prefabs/CropBanana");
+        cropCherriesFab = Resources.Load<GameObject>("Prefabs/CropCherries");
+
     }
 }
