@@ -278,6 +278,13 @@ public class GameManager : MonoBehaviour
         // Go through all workers and add resources to crop
         foreach (Worker worker in workers)
         {
+            // Don't bother if not deployed
+            if(worker.hex == null)
+            {
+                continue;
+            }
+
+            // Some workers might not affect tiles
             ITileAffector affector = worker.GetComponent<ITileAffector>();
             if (affector == null)
             {

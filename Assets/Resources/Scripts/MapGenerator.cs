@@ -88,10 +88,10 @@ public class MapGenerator : MonoBehaviour
         GameManager.instance.grid = grid;
     }
 
+    //TODO: Make this tied to level, fix all this in general
     private void PlaceCrops()
     {
         Dictionary<GameManager.Key, Hex> grid = GameManager.instance.grid;
-        //TODO: Make this tied to level
         int cropNum = 15;
 
         for (int i = 0; i < cropNum; i++)
@@ -103,7 +103,24 @@ public class MapGenerator : MonoBehaviour
                 Hex hex = grid.ElementAt(index).Value;
                 if (hex.crop == null)
                 {
-                    Crop newCrop = Instantiate<GameObject>(PrefabManager.instance.cropAppleFab).GetComponent<Crop>();
+                    int rand = Random.Range(0, 4);
+                    Crop newCrop = null;
+                    switch (rand)
+                    {
+                        case 0:
+                            newCrop = Instantiate<GameObject>(PrefabManager.instance.cropAppleFab).GetComponent<Crop>();
+                            break;
+                        case 1:
+                            newCrop = Instantiate<GameObject>(PrefabManager.instance.cropBananaFab).GetComponent<Crop>();
+                            break;
+                        case 2:
+                            newCrop = Instantiate<GameObject>(PrefabManager.instance.cropGrapesFab).GetComponent<Crop>();
+                            break;
+                        case 3:
+                            newCrop = Instantiate<GameObject>(PrefabManager.instance.cropCherriesFab).GetComponent<Crop>();
+                            break;
+
+                    }
                     newCrop.transform.SetParent(hex.transform);
                     newCrop.transform.localPosition = Vector2.zero;
                     hex.crop = newCrop;

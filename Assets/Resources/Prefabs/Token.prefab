@@ -133,6 +133,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081ca335e17086c4ebd50ca3a1113dd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waterColor: {r: 0, g: 0.5862069, b: 1, a: 1}
+  fertilizerColor: {r: 0, g: 1, b: 0.13103461, a: 0.997}
+  lightColor: {r: 0.94482756, g: 1, b: 0, a: 1}
+  pesticideColor: {r: 1, g: 0, b: 0.93103456, a: 1}
 --- !u!212 &212000010643370810
 SpriteRenderer:
   m_ObjectHideFlags: 1
