@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
 public class MapGenerator : MonoBehaviour
 {
+
+    public const int MAX_PLACEMENT_ATTEMPTS = 100;
 
     private Transform parentTransform;
 
@@ -25,6 +28,7 @@ public class MapGenerator : MonoBehaviour
 
         GenerateBG(bgRows, bgCols);
         GenerateHexGrid(GameManager.instance.hexRadius);
+        PlaceCrops();
         GameManager.instance.StartGame();
     }
 
@@ -82,5 +86,31 @@ public class MapGenerator : MonoBehaviour
         }
 
         GameManager.instance.grid = grid;
+    }
+
+    private void PlaceCrops()
+    {
+        Dictionary<GameManager.Key, Hex> grid = GameManager.instance.grid;
+        //TODO: Make this tied to level
+        int cropNum = 15;
+
+        for (int i = 0; i < cropNum; i++)
+        {
+            int attempts = 0;
+            if (attempts < MAX_PLACEMENT_ATTEMPTS)
+            {
+                int index = Random.Range(0, grid.Count);
+                Hex hex = grid.ElementAt(index).Value;
+                if (hex.crop == null)
+                {
+                    Crop newCrop = Instantiate<GameObject>(PrefabManager.instance.cropAppleFab).GetComponent<Crop>();
+                    newCrop.transform.SetParent(hex.transform);
+                    newCrop.transform.localPosition = Vector2.zero;
+                    hex.crop = newCrop;
+                    continue;
+                }
+                attempts++;
+            }
+        }
     }
 }
