@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -42,11 +43,12 @@ public class GameManager : MonoBehaviour
     private Text taxText;
     private Text goldText;
     private Text movesText;
+
     private GameObject resourceParent;
     private GameObject workerParent;
 
     private TurnButton turnButton;
-
+    private ScreenFader screenFader;
 
     void Awake()
     {
@@ -74,6 +76,7 @@ public class GameManager : MonoBehaviour
         turnButton = canvas.GetComponentInChildren<TurnButton>();
         resourceParent = GameObject.Find("Resources");
         workerParent = GameObject.Find("Workers");
+        screenFader = canvas.GetComponentInChildren<ScreenFader>();
         workerMenu = canvas.GetComponentInChildren<WorkerMenu>();
         workerFactory = gameObject.AddComponent<WorkerFactory>();
         workerFactory.Init();
@@ -147,6 +150,7 @@ public class GameManager : MonoBehaviour
                 //TODO: Bring back fog of war
                 //SetAllHexes(HexMode.FOG);
                 RevealHexes(0, 0);
+                screenFader.FadeIn();
                 break;
             case Phase.PLACEMENT:
 
@@ -154,6 +158,12 @@ public class GameManager : MonoBehaviour
             case Phase.ALIGNMENT:
                 break;
             case Phase.GROW:
+                //TODO: Do animation for growing
+                break;
+            case Phase.RESULTS:
+                break;
+            case Phase.FADEOUT:
+                screenFader.FadeOut();
                 break;
         }
 
@@ -311,5 +321,16 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    // Used for end year button
+    public void GoToFadeoutPhase()
+    {
+        GoToPhase(Phase.FADEOUT);
+    }
+
+    public void GoToNextYear()
+    {
+        SceneManager.LoadScene("Game");
     }
 }

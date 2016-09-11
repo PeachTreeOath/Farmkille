@@ -6,6 +6,8 @@ public enum Phase
     SCOUT,
     PLACEMENT,
     ALIGNMENT,
-    GROW
+    GROW,
+    RESULTS,
+    FADEOUT
 }
 

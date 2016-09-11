@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2c5f571958ba744ae5346eb1d2b6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tokenSpacing: 0.375
+  goldValue: 30
   waterValue: 2
   fertilizerValue: 0
   lightValue: 0
@@ -61,6 +61,7 @@ MonoBehaviour:
   currFertilizerValue: 0
   currLightValue: 0
   currPesticideValue: 0
+  tokenSpacing: 0.375
 --- !u!212 &212000010855333382
 SpriteRenderer:
   m_ObjectHideFlags: 1

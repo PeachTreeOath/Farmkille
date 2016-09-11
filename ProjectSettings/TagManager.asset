@@ -65,3 +65,6 @@ TagManager:
   - name: MenuWorker
     uniqueID: 2148362653
     locked: 0
+  - name: ScreenFader
+    uniqueID: 2502789193
+    locked: 0
