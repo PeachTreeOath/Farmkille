@@ -71,7 +71,9 @@ public class WorkerMenu : MonoBehaviour
 
     public void NextPage()
     {
-        if ((page-1) * numRow > GetAvailableWorkerCount())
+        int ct = GetAvailableWorkerCount();
+        int count = GetAvailableWorkerCount() - 3 - (page + 1) * numRow;
+        if (GetAvailableWorkerCount() - 3 - (page+1) * numRow <= 0)
         {
             return;
         }
@@ -100,7 +102,7 @@ public class WorkerMenu : MonoBehaviour
         int count = 0;
         foreach (Worker worker in workers)
         {
-            if (worker.hex != null)
+            if (worker.hex == null)
             {
                 count++;
             }

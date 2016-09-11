@@ -92,9 +92,12 @@ public class GameManager : MonoBehaviour
         workers.Add(workerFactory.CreateWorker2());
         workers.Add(workerFactory.CreateWorker1());
         workers.Add(workerFactory.CreateWorker1());
+        workers.Add(workerFactory.CreateWorker2());
         workers.Add(workerFactory.CreateWorker1());
         workers.Add(workerFactory.CreateWorker1());
-        
+        workers.Add(workerFactory.CreateWorker2());
+        workers.Add(workerFactory.CreateWorker1());
+
         PopulateWorkerMenu();
         GoToPhase(Phase.SCOUT);
         GoToPhase(Phase.PLACEMENT);
