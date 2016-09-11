@@ -192,6 +192,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   normalMat: {fileID: 0}
+  grayMat: {fileID: 0}
+  transparentMat: {fileID: 0}
   fogMat: {fileID: 0}
   highlightMat: {fileID: 0}
   affectedMat: {fileID: 0}

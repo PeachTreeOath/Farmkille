@@ -5,8 +5,7 @@ using System.Collections.Generic;
 
 public class Crop : MonoBehaviour
 {
-
-    public float tokenSpacing = 0.375f;
+    public int goldValue;
 
     public int waterValue;
     public int fertilizerValue;
@@ -17,6 +16,8 @@ public class Crop : MonoBehaviour
     public int currFertilizerValue;
     public int currLightValue;
     public int currPesticideValue;
+
+    public float tokenSpacing = 0.375f;
 
     private TokenDisplayer tokenDisplayer;
 

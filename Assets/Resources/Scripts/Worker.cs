@@ -11,10 +11,12 @@ public class Worker : MonoBehaviour
     private bool selected;
     private BoxCollider2D col;
     private ResourceProducer producer; // Producer can be null if it doesn't actually produce resources (ie. friendly buffer)
+    private SpriteRenderer spriteRenderer;
 
     void Awake()
     {
         col = GetComponent<BoxCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Start()
@@ -71,5 +73,21 @@ public class Worker : MonoBehaviour
         }
         hex = null;
         SelectWorker(true);
+    }
+
+    public void SetEnabled(bool enabled)
+    {
+        if (enabled)
+        {
+            spriteRenderer.sortingLayerName = "MenuWorker";
+            producer.SetTokenLayer(TokenDisplayer.TokenLayer.UI);
+            col.enabled = true;
+        }
+        else
+        {
+            spriteRenderer.sortingLayerName = "Invisible";
+            producer.SetTokenLayer(TokenDisplayer.TokenLayer.Invisible);
+            col.enabled = false;
+        }
     }
 }

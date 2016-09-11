@@ -3,11 +3,12 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
+//TODO: Make worker menu dynamic instead of having empty slots when you deploy
 public class WorkerMenu : MonoBehaviour
 {
 
     public float menuVelocity = 10f;
-    private int numRow = 3;
+    private int numRows = 3;
     private List<Worker> workers;
 
     private float elapsedDistance;
@@ -15,6 +16,9 @@ public class WorkerMenu : MonoBehaviour
     private Vector2 srcPosition;
     private Vector2 destPosition;
     private int page;
+
+    private WorkerArrow lArrow;
+    private WorkerArrow rArrow;
 
     void Update()
     {
@@ -40,48 +44,73 @@ public class WorkerMenu : MonoBehaviour
 
         for (int i = 0; i < workers.Count; i++)
         {
-            int x = startX + diffX * (i / numRow);
-            int y = startY - diffY * (i % numRow);
+            int x = startX + diffX * (i / numRows);
+            int y = startY - diffY * (i % numRows);
 
             workers[i].transform.localPosition = new Vector2(x, y);
         }
 
-        WorkerArrow lArrow = CreateWorkerLeftArrow();
-        WorkerArrow rArrow = CreateWorkerRightArrow();
+        lArrow = CreateWorkerLeftArrow();
+        rArrow = CreateWorkerRightArrow();
         lArrow.transform.localPosition = new Vector2(575, -275);
         rArrow.transform.localPosition = new Vector2(675, -275);
         lArrow.menu = this;
         rArrow.menu = this;
         this.workers = workers;
+        CheckIfArrowAllowed();
     }
 
     public void PrevPage()
     {
-        if (page == 0)
-        {
-            return;
-        }
-
         isMoving = true;
         elapsedDistance = 0;
         srcPosition = transform.localPosition;
         destPosition = transform.localPosition + new Vector3(170, 0);
         page--;
+        CheckIfArrowAllowed();
+        ShowHideWorkers();
     }
 
     public void NextPage()
     {
-        int ct = GetAvailableWorkerCount();
-        int count = GetAvailableWorkerCount() - 3 - (page + 1) * numRow;
-        if (GetAvailableWorkerCount() - 3 - (page+1) * numRow <= 0)
-        {
-            return;
-        }
         isMoving = true;
         elapsedDistance = 0;
         srcPosition = transform.localPosition;
         destPosition = transform.localPosition - new Vector3(170, 0);
         page++;
+        CheckIfArrowAllowed();
+        ShowHideWorkers();
+    }
+
+    private void CheckIfArrowAllowed()
+    {
+        if (page == 0)
+        {
+            lArrow.SetEnabled(false);
+        }
+        else
+        {
+            if (!lArrow.isEnabled)
+            {
+                lArrow.SetEnabled(true);
+            }
+        }
+
+        // Check if there's any workers after current page
+        //TODO: Change if menu becomes dynamic
+        //int count = GetAvailableWorkerCount() - 3 - (page + 1) * numRows;
+        int count = workers.Count - 3 - (page + 1) * numRows;
+        if (count <= 0)
+        {
+            rArrow.SetEnabled(false);
+        }
+        else
+        {
+            if (!rArrow.isEnabled)
+            {
+                rArrow.SetEnabled(true);
+            }
+        }
     }
 
     private List<Worker> CreateAvailableWorkerList()
@@ -89,7 +118,7 @@ public class WorkerMenu : MonoBehaviour
         List<Worker> newList = new List<Worker>();
         foreach (Worker worker in workers)
         {
-            if (worker.hex != null)
+            if (worker.hex == null)
             {
                 newList.Add(worker);
             }
@@ -125,5 +154,46 @@ public class WorkerMenu : MonoBehaviour
         obj.transform.SetParent(GameManager.instance.canvas.transform);
         WorkerArrow arrow = obj.GetComponent<WorkerArrow>();
         return arrow;
+    }
+
+    private void ShowHideWorkers()
+    {
+        //TODO: Change if dynamic
+        /*
+        List<Worker> availableWorkers = CreateAvailableWorkerList();
+        int invisIndex = page * numRows;
+
+        for (int i = 0; i < availableWorkers.Count; i++)
+        {
+            Worker worker = availableWorkers[i];
+            if (i < invisIndex)
+            {
+                worker.SetEnabled(false);
+            }
+            else
+            {
+                worker.SetEnabled(true);
+            }
+        }
+        */
+        int invisIndex = page * numRows;
+
+        for (int i = 0; i < workers.Count; i++)
+        {
+            Worker worker = workers[i];
+            if (worker.hex == null)
+            {
+                continue;
+            }
+
+            if (i < invisIndex)
+            {
+                worker.SetEnabled(false);
+            }
+            else
+            {
+                worker.SetEnabled(true);
+            }
+        }
     }
 }

@@ -7,6 +7,8 @@ public class PrefabManager : MonoBehaviour
     public static PrefabManager instance;
 
     public Material normalMat;
+    public Material grayMat;
+    public Material transparentMat;
     public Material fogMat;
     public Material highlightMat;
     public Material affectedMat;
@@ -41,7 +43,9 @@ public class PrefabManager : MonoBehaviour
 
     private void LoadPrefabs()
     {
-        normalMat = Resources.Load<Material>("Materials/Transparent");
+        normalMat = Resources.Load<Material>("Materials/Normal");
+        grayMat = Resources.Load<Material>("Materials/Gray");
+        transparentMat = Resources.Load<Material>("Materials/Transparent");
         fogMat = Resources.Load<Material>("Materials/Fog");
         highlightMat = Resources.Load<Material>("Materials/Highlight");
         affectedMat = Resources.Load<Material>("Materials/Affected");

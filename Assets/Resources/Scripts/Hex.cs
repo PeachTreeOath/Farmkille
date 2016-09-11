@@ -16,7 +16,7 @@ public class Hex : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private HashSet<Material> matSet;
-    private Material normalMat;
+    private Material transparentMat;
     private Material fogMat;
     private Material highlightMat;
     private Material affectedMat;
@@ -32,15 +32,15 @@ public class Hex : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         matSet = new HashSet<Material>();
         matMap = new Dictionary<HexMode, Material>();
-        normalMat = PrefabManager.instance.normalMat;
+        transparentMat = PrefabManager.instance.transparentMat;
         fogMat = PrefabManager.instance.fogMat;
         highlightMat = PrefabManager.instance.highlightMat;
         affectedMat = PrefabManager.instance.affectedMat;
-        matMap.Add(HexMode.NORMAL, normalMat);
+        matMap.Add(HexMode.NORMAL, transparentMat);
         matMap.Add(HexMode.FOG, fogMat);
         matMap.Add(HexMode.HIGHLIGHT, highlightMat);
         matMap.Add(HexMode.AFFECTED, affectedMat);
-        
+
         SetHexMode(HexMode.NORMAL);
     }
 
@@ -139,11 +139,10 @@ public class Hex : MonoBehaviour
             mode = HexMode.HIGHLIGHT;
             spriteRenderer.material = highlightMat;
         }
-        else if (matSet.Contains(normalMat))
+        else if (matSet.Contains(transparentMat))
         {
             mode = HexMode.NORMAL;
-            spriteRenderer.material = normalMat;
+            spriteRenderer.material = transparentMat;
         }
-
     }
 }
