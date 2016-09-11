@@ -13,7 +13,7 @@ public class WorkerArrow : MonoBehaviour
         isFacingLeft = true;
         transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
     }
-    //TODOOOOOOOOOOO Set menu!!!
+    
     void OnMouseDown()
     {
         if (isFacingLeft)

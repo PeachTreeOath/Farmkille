@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     private List<Hex> cropHexes;
     private List<Worker> workers;
     private WorkerFactory workerFactory;
-    private WorkerMenu workerMenu;
+    public WorkerMenu workerMenu;
 
     public Worker selectedUnit;
     public Hex currentHoveredHex;
@@ -66,8 +66,6 @@ public class GameManager : MonoBehaviour
     {
         workers = new List<Worker>();
         cropHexes = new List<Hex>();
-        workerFactory = gameObject.AddComponent<WorkerFactory>();
-
         canvas = GameObject.Find("Canvas");
         yearText = canvas.transform.Find("YearText").GetComponent<Text>();
         taxText = canvas.transform.Find("TaxText").GetComponent<Text>();
@@ -76,6 +74,9 @@ public class GameManager : MonoBehaviour
         turnButton = canvas.GetComponentInChildren<TurnButton>();
         resourceParent = GameObject.Find("Resources");
         workerParent = GameObject.Find("Workers");
+        workerMenu = canvas.GetComponentInChildren<WorkerMenu>();
+        workerFactory = gameObject.AddComponent<WorkerFactory>();
+        workerFactory.Init();
     }
 
     public void StartGame()
@@ -88,17 +89,13 @@ public class GameManager : MonoBehaviour
         // Create starting workers
         workers.Add(workerFactory.CreateWorker1());
         workers.Add(workerFactory.CreateWorker1());
+        workers.Add(workerFactory.CreateWorker2());
         workers.Add(workerFactory.CreateWorker1());
         workers.Add(workerFactory.CreateWorker1());
         workers.Add(workerFactory.CreateWorker1());
         workers.Add(workerFactory.CreateWorker1());
-        workers.Add(workerFactory.CreateWorker1());
-        workers.Add(workerFactory.CreateWorker1());
-        //workers.Add(workerFactory.CreateWorker2());
-
-        // Create worker menu in panel and hide
-        CreateWorkerMenu();
-
+        
+        PopulateWorkerMenu();
         GoToPhase(Phase.SCOUT);
         GoToPhase(Phase.PLACEMENT);
     }
@@ -242,10 +239,9 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    private void CreateWorkerMenu()
+    private void PopulateWorkerMenu()
     {
-        workerMenu = gameObject.AddComponent<WorkerMenu>();
-        workerMenu.CreateWorkerMenu(workers);
+        workerMenu.PopulateWorkerMenu(workers);
     }
 
     public void PlaceUnitOnCursor(Worker worker)
