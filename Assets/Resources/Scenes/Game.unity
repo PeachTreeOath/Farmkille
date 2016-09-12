@@ -424,7 +424,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: End Turn
+  m_Text: Harvest
 --- !u!222 &689824291
 CanvasRenderer:
   m_ObjectHideFlags: 0

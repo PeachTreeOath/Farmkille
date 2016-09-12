@@ -181,7 +181,7 @@ public class WorkerMenu : MonoBehaviour
         for (int i = 0; i < workers.Count; i++)
         {
             Worker worker = workers[i];
-            if (worker.hex == null)
+            if (worker.hex != null)
             {
                 continue;
             }
