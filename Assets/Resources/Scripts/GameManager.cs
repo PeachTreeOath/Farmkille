@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
 
     private TurnButton turnButton;
     private ScreenFader screenFader;
+    private CanvasGroup resultsCanvas;
 
     void Awake()
     {
@@ -73,10 +74,11 @@ public class GameManager : MonoBehaviour
         taxText = canvas.transform.Find("TaxText").GetComponent<Text>();
         goldText = canvas.transform.Find("GoldText").GetComponent<Text>();
         movesText = canvas.transform.Find("MovesText").GetComponent<Text>();
-        turnButton = canvas.GetComponentInChildren<TurnButton>();
         resourceParent = GameObject.Find("Resources");
         workerParent = GameObject.Find("Workers");
         screenFader = canvas.GetComponentInChildren<ScreenFader>();
+        turnButton = canvas.GetComponentInChildren<TurnButton>();
+        resultsCanvas = canvas.GetComponentInChildren<CanvasGroup>();
         workerMenu = canvas.GetComponentInChildren<WorkerMenu>();
         workerFactory = gameObject.AddComponent<WorkerFactory>();
         workerFactory.Init();
@@ -91,15 +93,15 @@ public class GameManager : MonoBehaviour
 
         // Create starting workers
         workers.Add(workerFactory.CreateWorker1());
-        workers.Add(workerFactory.CreateWorker1());
+        //   workers.Add(workerFactory.CreateWorker1());
         workers.Add(workerFactory.CreateWorker2());
-        workers.Add(workerFactory.CreateWorker1());
-        workers.Add(workerFactory.CreateWorker1());
-        workers.Add(workerFactory.CreateWorker2());
-        workers.Add(workerFactory.CreateWorker1());
-        workers.Add(workerFactory.CreateWorker1());
-        workers.Add(workerFactory.CreateWorker2());
-        workers.Add(workerFactory.CreateWorker1());
+        //workers.Add(workerFactory.CreateWorker1());
+        //workers.Add(workerFactory.CreateWorker1());
+        //workers.Add(workerFactory.CreateWorker2());
+        //workers.Add(workerFactory.CreateWorker1());
+        //workers.Add(workerFactory.CreateWorker1());
+        //workers.Add(workerFactory.CreateWorker2());
+        //workers.Add(workerFactory.CreateWorker1());
 
         PopulateWorkerMenu();
         GoToPhase(Phase.SCOUT);
@@ -161,6 +163,7 @@ public class GameManager : MonoBehaviour
                 //TODO: Do animation for growing
                 break;
             case Phase.RESULTS:
+                ShowResultsPanel();
                 break;
             case Phase.FADEOUT:
                 screenFader.FadeOut();
@@ -205,6 +208,18 @@ public class GameManager : MonoBehaviour
         foreach (var key in grid.Keys)
         {
             grid[key].SetHexMode(mode);
+        }
+    }
+
+    private void SetAllNonCropHexes(HexMode mode)
+    {
+        foreach (var key in grid.Keys)
+        {
+            Hex hex = grid[key];
+            if (hex.crop == null)
+            {
+                hex.SetHexMode(mode);
+            }
         }
     }
 
@@ -260,12 +275,16 @@ public class GameManager : MonoBehaviour
     public void PlaceUnitOnCursor(Worker worker)
     {
         selectedUnit = worker;
-        SetAllHexes(HexMode.HIGHLIGHT);
+        SetAllNonCropHexes(HexMode.HIGHLIGHT);
         CheckCropNeeds();
     }
 
     public void PlaceUnitInHex(Hex hex)
     {
+        if (hex.mode != HexMode.HIGHLIGHT)
+        {
+            return;
+        }
         selectedUnit.transform.SetParent(workerParent.transform);
         selectedUnit.SetHex(hex);
         selectedUnit = null;
@@ -321,6 +340,14 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void ShowResultsPanel()
+    {
+        canvas.GetComponent<Canvas>().sortingLayerName = "ScreenFader";
+        resultsCanvas.alpha = 1;
+        resultsCanvas.interactable = true;
+        resultsCanvas.blocksRaycasts = true;
     }
 
     // Used for end year button

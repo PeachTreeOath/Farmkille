@@ -6,13 +6,10 @@ public class TurnButton : MonoBehaviour
 {
 
     private Button button;
-    private Text buttonText;
 
     void Awake()
     {
         button = GetComponent<Button>();
-        buttonText = GetComponentInChildren<Text>();
-        buttonText.text = "End Turn";
     }
 
     public void GoToPhase(Phase newPhase)
@@ -20,25 +17,26 @@ public class TurnButton : MonoBehaviour
         switch (newPhase)
         {
             case Phase.SCOUT:
-                button.enabled = false;
+                button.interactable = false;
                 break;
             case Phase.PLACEMENT:
-                button.enabled = true;
+                button.interactable = true;
                 break;
             case Phase.ALIGNMENT:
-                button.enabled = false;
+                button.interactable = false;
                 break;
             case Phase.GROW:
-                button.enabled = false;
+                button.interactable = false;
                 break;
             case Phase.RESULTS:
-
+                button.interactable = false;
                 break;
         }
     }
 
     public void EndTurn()
     {
-        GameManager.instance.GoToPhase(Phase.GROW);
+        //TODO: Change to grow when animation
+        GameManager.instance.GoToPhase(Phase.RESULTS);
     }
 }

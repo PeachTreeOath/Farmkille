@@ -57,6 +57,7 @@ public class Worker : MonoBehaviour
         newHex.worker = this;
         hex = newHex;
         transform.position = newHex.transform.position;
+        spriteRenderer.sortingLayerName = "Worker";
         if (producer != null)
         {
             producer.SetTokenLayer(TokenDisplayer.TokenLayer.Invisible);
@@ -75,6 +76,7 @@ public class Worker : MonoBehaviour
         SelectWorker(true);
     }
 
+    // Used by worker menu when worker is slid into the board via Next Page
     public void SetEnabled(bool enabled)
     {
         if (enabled)

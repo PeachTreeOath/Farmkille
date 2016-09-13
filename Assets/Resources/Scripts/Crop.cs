@@ -71,4 +71,12 @@ public class Crop : MonoBehaviour
         tokenDisplayer.UpdateTokens(currWaterValue, currFertilizerValue, currLightValue, currPesticideValue);
     }
 
+    public bool AreAllResourcesMet()
+    {
+        if(currWaterValue <= 0 && currFertilizerValue <= 0 && currLightValue <= 0 && currPesticideValue <= 0)
+        {
+            return true;
+        }
+        return false;
+    }
 }
