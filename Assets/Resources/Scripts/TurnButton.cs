@@ -36,7 +36,6 @@ public class TurnButton : MonoBehaviour
 
     public void EndTurn()
     {
-        //TODO: Change to grow when animation
-        GameManager.instance.GoToPhase(Phase.RESULTS);
+        GameManager.instance.GoToPhase(Phase.GROW);
     }
 }

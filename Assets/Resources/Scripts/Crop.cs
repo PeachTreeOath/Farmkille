@@ -79,4 +79,9 @@ public class Crop : MonoBehaviour
         }
         return false;
     }
+
+    public void SetTokenLayer(TokenDisplayer.TokenLayer layer)
+    {
+        tokenDisplayer.SetTokenLayer(layer);
+    }
 }

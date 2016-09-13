@@ -28,8 +28,11 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public Dictionary<Key, Hex> grid;
 
-    private int year = 1;
     private int moves = 2;
+    private int tax = 5;
+    private int gold = 0;
+
+    private int year = 1;
     private List<Hex> cropHexes;
     private List<Worker> workers;
     private WorkerFactory workerFactory;
@@ -47,9 +50,15 @@ public class GameManager : MonoBehaviour
     private GameObject resourceParent;
     private GameObject workerParent;
 
+    private List<Crop> growingCrops;
+    private float elapsedGrowTime;
+    public float growSpeed;
+
     private TurnButton turnButton;
     private ScreenFader screenFader;
     private CanvasGroup resultsCanvas;
+    private Text resultsText;
+
 
     void Awake()
     {
@@ -79,6 +88,8 @@ public class GameManager : MonoBehaviour
         screenFader = canvas.GetComponentInChildren<ScreenFader>();
         turnButton = canvas.GetComponentInChildren<TurnButton>();
         resultsCanvas = canvas.GetComponentInChildren<CanvasGroup>();
+        resultsText = resultsCanvas.transform.Find("ResultsGold").GetComponent<Text>();
+        growingCrops = new List<Crop>();
         workerMenu = canvas.GetComponentInChildren<WorkerMenu>();
         workerFactory = gameObject.AddComponent<WorkerFactory>();
         workerFactory.Init();
@@ -93,41 +104,41 @@ public class GameManager : MonoBehaviour
 
         // Create starting workers
         workers.Add(workerFactory.CreateWorker1());
-        //   workers.Add(workerFactory.CreateWorker1());
         workers.Add(workerFactory.CreateWorker2());
-        //workers.Add(workerFactory.CreateWorker1());
-        //workers.Add(workerFactory.CreateWorker1());
-        //workers.Add(workerFactory.CreateWorker2());
-        //workers.Add(workerFactory.CreateWorker1());
-        //workers.Add(workerFactory.CreateWorker1());
-        //workers.Add(workerFactory.CreateWorker2());
-        //workers.Add(workerFactory.CreateWorker1());
 
         PopulateWorkerMenu();
         GoToPhase(Phase.SCOUT);
         GoToPhase(Phase.PLACEMENT);
     }
 
-    /*
     void Update()
     {
         switch (phase)
         {
-            case Phase.SCOUT:
+            //case Phase.SCOUT:
 
-                break;
-            case Phase.PLACEMENT:
+            //    break;
+            //case Phase.PLACEMENT:
 
-                break;
-            case Phase.ALIGNMENT:
+            //    break;
+            //case Phase.ALIGNMENT:
 
-                break;
+            //    break;
             case Phase.GROW:
-
+                elapsedGrowTime += growSpeed * Time.deltaTime;
+                float scale = Mathf.Lerp(1, 2, elapsedGrowTime);
+                Vector2 newScale = new Vector2(scale, scale);
+                foreach (Crop crop in growingCrops)
+                {
+                    crop.transform.localScale = newScale;
+                }
+                if (elapsedGrowTime >= 2)
+                {
+                    GoToPhase(Phase.RESULTS);
+                }
                 break;
         }
     }
-    */
 
     void LateUpdate()
     {
@@ -160,18 +171,33 @@ public class GameManager : MonoBehaviour
             case Phase.ALIGNMENT:
                 break;
             case Phase.GROW:
-                //TODO: Do animation for growing
+                StartGrowing();
                 break;
             case Phase.RESULTS:
-                ShowResultsPanel();
+                ShowResultsPanel(true);
                 break;
             case Phase.FADEOUT:
+                ShowResultsPanel(false);
                 screenFader.FadeOut();
                 break;
         }
 
         turnButton.GoToPhase(nextPhase);
         phase = nextPhase;
+    }
+
+    private void StartGrowing()
+    {
+        // Find crops whose requirements are all met
+        foreach (Hex hex in cropHexes)
+        {
+            Crop crop = hex.crop;
+            if (crop.AreAllResourcesMet())
+            {
+                crop.SetTokenLayer(TokenDisplayer.TokenLayer.Invisible);
+                growingCrops.Add(crop);
+            }
+        }
     }
 
     public void RevealHexes(int x, int y)
@@ -342,12 +368,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void ShowResultsPanel()
+    private void ShowResultsPanel(bool enablePanel)
     {
-        canvas.GetComponent<Canvas>().sortingLayerName = "ScreenFader";
-        resultsCanvas.alpha = 1;
-        resultsCanvas.interactable = true;
-        resultsCanvas.blocksRaycasts = true;
+        foreach(Crop crop in growingCrops)
+        {
+            gold += crop.goldValue;
+        }
+        int goldEarned = gold - tax;
+
+        if (enablePanel)
+        {
+            canvas.GetComponent<Canvas>().sortingLayerName = "ScreenFader";
+            resultsCanvas.alpha = 1;
+            resultsCanvas.interactable = true;
+            resultsCanvas.blocksRaycasts = true;
+
+            resultsText.text = "Gold: " + gold + "\nTax: -" + tax + "\n\nGold Earned: " + goldEarned;
+        }
+        else
+        {
+            resultsCanvas.alpha = 0;
+            resultsCanvas.interactable = false;
+            resultsCanvas.blocksRaycasts = false;
+        }
     }
 
     // Used for end year button
