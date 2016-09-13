@@ -99,8 +99,8 @@ public class GameManager : MonoBehaviour
     {
         // Set up UI
         yearText.text = "YEAR " + year;
-        taxText.text = "Tax: " + 25;
-        goldText.text = "Gold: " + 0;
+        taxText.text = "Tax: " + tax;
+        goldText.text = "Gold: " + gold;
 
         // Create starting workers
         workers.Add(workerFactory.CreateWorker1());
