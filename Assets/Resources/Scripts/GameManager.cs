@@ -59,7 +59,6 @@ public class GameManager : MonoBehaviour
     private CanvasGroup resultsCanvas;
     private Text resultsText;
 
-
     void Awake()
     {
         if (instance == null)
@@ -76,6 +75,9 @@ public class GameManager : MonoBehaviour
 
     private void LoadReferences()
     {
+        year = GlobalInfo.instance.year;
+        gold = GlobalInfo.instance.gold;
+
         workers = new List<Worker>();
         cropHexes = new List<Hex>();
         canvas = GameObject.Find("Canvas");
@@ -391,16 +393,31 @@ public class GameManager : MonoBehaviour
             resultsCanvas.interactable = false;
             resultsCanvas.blocksRaycasts = false;
         }
+
+        gold = goldEarned;
     }
 
-    // Used for end year button
+    // Used for harvest button
     public void GoToFadeoutPhase()
     {
         GoToPhase(Phase.FADEOUT);
     }
 
+    public void GoToShop()
+    {
+        SaveStatsToGlobal();
+        SceneManager.LoadScene("Shop");
+    }
+
     public void GoToNextYear()
     {
+        SaveStatsToGlobal();
         SceneManager.LoadScene("Game");
+    }
+
+    private void SaveStatsToGlobal()
+    {
+        GlobalInfo.instance.year = year + 1;
+        GlobalInfo.instance.gold = gold;
     }
 }
