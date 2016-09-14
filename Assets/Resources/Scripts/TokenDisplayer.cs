@@ -22,6 +22,7 @@ public class TokenDisplayer : MonoBehaviour
         // Position of tokens is clockwise starting on the bottom
         if (waterValue > 0)
         {
+            PrefabManager pf = PrefabManager.instance;
             Token token = Instantiate<GameObject>(PrefabManager.instance.tokenFab).GetComponent<Token>();
             token.transform.SetParent(transform);
             token.transform.localPosition = new Vector2(0, -tokenSpacing);

@@ -28,9 +28,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public Dictionary<Key, Hex> grid;
 
-    private int moves = 2;
+    private int stamina;
     private int tax = 5;
-    private int gold = 0;
+    private int gold;
 
     private int year = 1;
     private List<Hex> cropHexes;
@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
     {
         year = GlobalInfo.instance.year;
         gold = GlobalInfo.instance.gold;
+        stamina = GlobalInfo.instance.stamina;
 
         workers = new List<Worker>();
         cropHexes = new List<Hex>();
@@ -105,8 +106,10 @@ public class GameManager : MonoBehaviour
         goldText.text = "Gold: " + gold;
 
         // Create starting workers
-        workers.Add(workerFactory.CreateWorker1());
-        workers.Add(workerFactory.CreateWorker2());
+        foreach(WorkerType type in GlobalInfo.instance.workers)
+        {
+            workers.Add(workerFactory.CreateWorker(type));
+        }
 
         PopulateWorkerMenu();
         GoToPhase(Phase.SCOUT);

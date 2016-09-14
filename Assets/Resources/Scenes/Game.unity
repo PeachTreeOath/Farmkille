@@ -338,6 +338,13 @@ MonoBehaviour:
   workerArrowFab: {fileID: 0}
   worker1Fab: {fileID: 0}
   worker2Fab: {fileID: 0}
+  worker3Fab: {fileID: 0}
+  worker4Fab: {fileID: 0}
+  worker5Fab: {fileID: 0}
+  worker6Fab: {fileID: 0}
+  worker7Fab: {fileID: 0}
+  worker8Fab: {fileID: 0}
+  worker9Fab: {fileID: 0}
   cropAppleFab: {fileID: 0}
   cropBananaFab: {fileID: 0}
   cropCherriesFab: {fileID: 0}

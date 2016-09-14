@@ -12,18 +12,38 @@ public class WorkerFactory : MonoBehaviour
         parent = GameManager.instance.workerMenu.transform;
     }
 
-    public Worker CreateWorker1()
+    public Worker CreateWorker(WorkerType type)
     {
-        GameObject obj = Instantiate<GameObject>(PrefabManager.instance.worker1Fab);
+        switch (type)
+        {
+            case WorkerType.WORKER1:
+                return CreateWorkerFromPrefab(PrefabManager.instance.worker1Fab);
+            case WorkerType.WORKER2:
+                return CreateWorkerFromPrefab(PrefabManager.instance.worker2Fab);
+            case WorkerType.WORKER3:
+                return CreateWorkerFromPrefab(PrefabManager.instance.worker3Fab);
+            case WorkerType.WORKER4:
+                return CreateWorkerFromPrefab(PrefabManager.instance.worker4Fab);
+            case WorkerType.WORKER5:
+                return CreateWorkerFromPrefab(PrefabManager.instance.worker5Fab);
+            case WorkerType.WORKER6:
+                return CreateWorkerFromPrefab(PrefabManager.instance.worker6Fab);
+            case WorkerType.WORKER7:
+                return CreateWorkerFromPrefab(PrefabManager.instance.worker7Fab);
+            case WorkerType.WORKER8:
+                return CreateWorkerFromPrefab(PrefabManager.instance.worker8Fab);
+            case WorkerType.WORKER9:
+                return CreateWorkerFromPrefab(PrefabManager.instance.worker9Fab);
+        }
+
+        return null;
+    }
+
+    private Worker CreateWorkerFromPrefab(GameObject prefab)
+    {
+        GameObject obj = Instantiate<GameObject>(prefab);
         obj.transform.SetParent(parent);
         return obj.GetComponent<Worker>();
     }
-
-    public Worker CreateWorker2()
-    {
-        GameObject obj = Instantiate<GameObject>(PrefabManager.instance.worker2Fab);
-        obj.transform.SetParent(parent);
-        return obj.GetComponent<Worker>();
-    }
-
+    
 }

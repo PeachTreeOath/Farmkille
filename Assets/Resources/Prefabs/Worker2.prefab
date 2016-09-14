@@ -81,9 +81,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ee3223b2d09ab44a8eeb6af94b3ce88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tokenSpacing: 0.375
   waterValue: 0
-  fertilizerValue: 1
+  fertilizerValue: 2
   lightValue: 0
+  pesticideValue: 0
 --- !u!114 &114000012266155498
 MonoBehaviour:
   m_ObjectHideFlags: 1
