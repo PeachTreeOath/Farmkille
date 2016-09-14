@@ -253,7 +253,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 716439443}
-        m_MethodName: GoToFadeoutPhase
+        m_MethodName: GoToShop
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -349,6 +349,7 @@ MonoBehaviour:
   cropBananaFab: {fileID: 0}
   cropCherriesFab: {fileID: 0}
   cropGrapesFab: {fileID: 0}
+  workerCardFab: {fileID: 0}
 --- !u!4 &524783432
 Transform:
   m_ObjectHideFlags: 0
