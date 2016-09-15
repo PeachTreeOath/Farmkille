@@ -89,6 +89,7 @@ public class MapGenerator : MonoBehaviour
     }
 
     //TODO: Make this tied to level, fix all this in general
+    //NOTE: There are 331 available hexes in a 10 radius hex grid
     private void PlaceCrops()
     {
         Dictionary<GameManager.Key, Hex> grid = GameManager.instance.grid;
