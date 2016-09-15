@@ -5,11 +5,30 @@ using System;
 public class WorkerFactory : MonoBehaviour
 {
 
+    public static WorkerFactory instance;
+
     private Transform parent;
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
 
     public void Init()
     {
-        parent = GameManager.instance.workerMenu.transform;
+        if (GameManager.instance != null)
+        {
+            parent = GameManager.instance.workerMenu.transform;
+        }
     }
 
     public Worker CreateWorker(WorkerType type)
@@ -39,11 +58,19 @@ public class WorkerFactory : MonoBehaviour
         return null;
     }
 
+    public Worker CreateRandomWorker()
+    {
+        int typeNum = UnityEngine.Random.Range(0, Enum.GetNames(typeof(WorkerType)).Length);
+        WorkerType type = (WorkerType)typeNum;
+
+        return CreateWorker(type);
+    }
+
     private Worker CreateWorkerFromPrefab(GameObject prefab)
     {
         GameObject obj = Instantiate<GameObject>(prefab);
         obj.transform.SetParent(parent);
         return obj.GetComponent<Worker>();
     }
-    
+
 }

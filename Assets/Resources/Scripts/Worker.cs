@@ -6,6 +6,7 @@ using System;
 public class Worker : MonoBehaviour
 {
 
+    public string workerName;
     public Hex hex;
 
     private bool selected;

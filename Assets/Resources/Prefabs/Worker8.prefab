@@ -85,6 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fca1a2f75f80d34fbdb71ec811308ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  workerName: Kiwin
   hex: {fileID: 0}
 --- !u!114 &114000013941544366
 MonoBehaviour:

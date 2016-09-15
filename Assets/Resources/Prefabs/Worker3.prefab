@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fca1a2f75f80d34fbdb71ec811308ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  workerName: Birdie
   hex: {fileID: 0}
 --- !u!212 &212000011672368608
 SpriteRenderer:

@@ -26,6 +26,13 @@ public class ShopManager : MonoBehaviour
         obj6.transform.localScale *= 2;
     }
 
+    private GameObject CreateRandomWorker()
+    {
+        GameObject obj = (GameObject)GameObject.Instantiate(PrefabManager.instance.worker5Fab, new Vector2(-5f, 0), Quaternion.identity);
+
+        return obj;
+    }
+
     public void GoToNextYear()
     {
         GlobalInfo.instance.AddWorker(WorkerType.WORKER9);

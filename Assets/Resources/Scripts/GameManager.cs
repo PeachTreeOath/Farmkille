@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
         resultsText = resultsCanvas.transform.Find("ResultsGold").GetComponent<Text>();
         growingCrops = new List<Crop>();
         workerMenu = canvas.GetComponentInChildren<WorkerMenu>();
-        workerFactory = gameObject.AddComponent<WorkerFactory>();
+        workerFactory = WorkerFactory.instance;
         workerFactory.Init();
     }
 
