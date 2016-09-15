@@ -86,6 +86,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   workerName: Guvner
+  type: 4
   hex: {fileID: 0}
 --- !u!114 &114000012877548526
 MonoBehaviour:

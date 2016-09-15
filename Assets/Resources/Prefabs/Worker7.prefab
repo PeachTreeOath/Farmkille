@@ -70,6 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   workerName: BFD
+  type: 6
   hex: {fileID: 0}
 --- !u!114 &114000011590161016
 MonoBehaviour:

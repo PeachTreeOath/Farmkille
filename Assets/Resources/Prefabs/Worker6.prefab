@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   workerName: Sharptooth
+  type: 5
   hex: {fileID: 0}
 --- !u!212 &212000010119189208
 SpriteRenderer:

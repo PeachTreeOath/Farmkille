@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   workerName: Iklak
+  type: 8
   hex: {fileID: 0}
 --- !u!212 &212000012662946816
 SpriteRenderer:

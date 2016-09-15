@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 public class WorkerFactory : MonoBehaviour
@@ -58,11 +59,17 @@ public class WorkerFactory : MonoBehaviour
         return null;
     }
 
-    public Worker CreateRandomWorker()
+    public Worker CreateRandomWorker(List<WorkerType> rolledTypes)
     {
-        int typeNum = UnityEngine.Random.Range(0, Enum.GetNames(typeof(WorkerType)).Length);
-        WorkerType type = (WorkerType)typeNum;
+        WorkerType type = WorkerType.WORKER1;
+        List<WorkerType> existingTypes = GlobalInfo.instance.workers;
 
+        do
+        {
+            int typeNum = UnityEngine.Random.Range(0, Enum.GetNames(typeof(WorkerType)).Length);
+            type = (WorkerType)typeNum;
+        }
+        while (existingTypes.Contains(type) || rolledTypes.Contains(type));
         return CreateWorker(type);
     }
 

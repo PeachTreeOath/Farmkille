@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   workerName: Birdie
+  type: 2
   hex: {fileID: 0}
 --- !u!212 &212000011672368608
 SpriteRenderer:

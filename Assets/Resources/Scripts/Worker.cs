@@ -7,6 +7,7 @@ public class Worker : MonoBehaviour
 {
 
     public string workerName;
+    public WorkerType type;
     public Hex hex;
 
     private bool selected;

@@ -54,6 +54,7 @@ GameObject:
   - 223: {fileID: 223000012829641890}
   - 114: {fileID: 114000010531790600}
   - 114: {fileID: 114000013514145326}
+  - 114: {fileID: 114000011966381774}
   m_Layer: 5
   m_Name: WorkerCard
   m_TagString: Untagged
@@ -167,6 +168,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Worker
+--- !u!114 &114000011966381774
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012521357438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e59dfc37a1568b448b3a4797f87de74f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
 --- !u!114 &114000012855421192
 MonoBehaviour:
   m_ObjectHideFlags: 1

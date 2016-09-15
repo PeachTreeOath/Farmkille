@@ -70,6 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   workerName: Bob
+  type: 3
   hex: {fileID: 0}
 --- !u!114 &114000011233614300
 MonoBehaviour:
