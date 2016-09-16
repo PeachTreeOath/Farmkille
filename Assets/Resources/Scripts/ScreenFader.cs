@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -14,6 +15,7 @@ public class ScreenFader : MonoBehaviour
     private bool isFading;
     private bool isFadingIn;
     private float elapsedTime;
+    private string nextSceneName;
 
     void Awake()
     {
@@ -43,7 +45,7 @@ public class ScreenFader : MonoBehaviour
                 isFading = false;
                 if(isFadingIn == false)
                 {
-                    GameManager.instance.GoToNextYear();
+                    SceneManager.LoadScene(nextSceneName);
                 }
             }
         }
@@ -56,10 +58,12 @@ public class ScreenFader : MonoBehaviour
         elapsedTime = 0;
     }
 
-    public void FadeOut()
+    public void FadeOut(string sceneName)
     {
         isFading = true;
         isFadingIn = false;
         elapsedTime = 0;
+        nextSceneName = sceneName;
     }
+
 }

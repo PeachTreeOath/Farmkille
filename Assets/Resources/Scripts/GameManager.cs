@@ -94,19 +94,21 @@ public class GameManager : MonoBehaviour
         resultsText = resultsCanvas.transform.Find("ResultsGold").GetComponent<Text>();
         growingCrops = new List<Crop>();
         workerMenu = canvas.GetComponentInChildren<WorkerMenu>();
-        workerFactory = WorkerFactory.instance;
-        workerFactory.Init();
     }
 
     public void StartGame()
     {
+        // Fire up factory
+        workerFactory = WorkerFactory.instance;
+        workerFactory.Init();
+
         // Set up UI
         yearText.text = "YEAR " + year;
         taxText.text = "Tax: " + tax;
         goldText.text = "Gold: " + gold;
 
         // Create starting workers
-        foreach(WorkerType type in GlobalInfo.instance.workers)
+        foreach (WorkerType type in GlobalInfo.instance.workers)
         {
             workers.Add(workerFactory.CreateWorker(type));
         }
@@ -183,7 +185,6 @@ public class GameManager : MonoBehaviour
                 break;
             case Phase.FADEOUT:
                 ShowResultsPanel(false);
-                screenFader.FadeOut();
                 break;
         }
 
@@ -375,7 +376,7 @@ public class GameManager : MonoBehaviour
 
     private void ShowResultsPanel(bool enablePanel)
     {
-        foreach(Crop crop in growingCrops)
+        foreach (Crop crop in growingCrops)
         {
             gold += crop.goldValue;
         }
@@ -400,22 +401,18 @@ public class GameManager : MonoBehaviour
         gold = goldEarned;
     }
 
-    // Used for harvest button
-    public void GoToFadeoutPhase()
-    {
-        GoToPhase(Phase.FADEOUT);
-    }
-
     public void GoToShop()
     {
         SaveStatsToGlobal();
-        SceneManager.LoadScene("Shop");
+        screenFader.FadeOut("Shop");
+        GoToPhase(Phase.FADEOUT);
     }
 
     public void GoToNextYear()
     {
         SaveStatsToGlobal();
-        SceneManager.LoadScene("Game");
+        screenFader.FadeOut("Game");
+        GoToPhase(Phase.FADEOUT);
     }
 
     private void SaveStatsToGlobal()

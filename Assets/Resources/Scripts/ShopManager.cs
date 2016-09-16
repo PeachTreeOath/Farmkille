@@ -7,13 +7,18 @@ using System.Collections.Generic;
 public class ShopManager : MonoBehaviour
 {
 
-    WorkerCard card1;
-    WorkerCard card2;
-    WorkerCard card3;
+    private WorkerCard card1;
+    private WorkerCard card2;
+    private WorkerCard card3;
+
+    private ScreenFader screenFader;
+
     // Use this for initialization
     void Start()
     {
         GameObject workerCardFab = PrefabManager.instance.workerCardFab;
+        screenFader = GameObject.Find("Canvas/ScreenFader").GetComponent<ScreenFader>();
+        screenFader.FadeIn();
 
         card1 = ((GameObject)GameObject.Instantiate(workerCardFab, new Vector2(-5f, 0), Quaternion.identity)).GetComponent<WorkerCard>();
         card2 = ((GameObject)GameObject.Instantiate(workerCardFab, Vector2.zero, Quaternion.identity)).GetComponent<WorkerCard>();
@@ -56,6 +61,6 @@ public class ShopManager : MonoBehaviour
             type = card3.type;
         }
         GlobalInfo.instance.AddWorker(type);
-        SceneManager.LoadScene("Game");
+        screenFader.FadeOut("Game");
     }
 }

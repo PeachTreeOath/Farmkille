@@ -63,7 +63,7 @@ public class WorkerFactory : MonoBehaviour
     {
         WorkerType type = WorkerType.WORKER1;
         List<WorkerType> existingTypes = GlobalInfo.instance.workers;
-
+        
         do
         {
             int typeNum = UnityEngine.Random.Range(0, Enum.GetNames(typeof(WorkerType)).Length);
