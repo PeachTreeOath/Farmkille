@@ -376,10 +376,13 @@ public class GameManager : MonoBehaviour
 
     private void ShowResultsPanel(bool enablePanel)
     {
+        int newGoldEarned = 0;
         foreach (Crop crop in growingCrops)
         {
-            gold += crop.goldValue;
+            newGoldEarned += crop.goldValue;
         }
+        GlobalInfo.instance.exp += newGoldEarned;
+        gold += newGoldEarned;
         int goldEarned = gold - tax;
 
         if (enablePanel)
