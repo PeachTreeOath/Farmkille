@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     public Dictionary<Key, Hex> grid;
 
     private int stamina;
-    private int tax = 5;
+    private int tax;
     private int gold;
 
     private int year = 1;
@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
         year = GlobalInfo.instance.year;
         gold = GlobalInfo.instance.gold;
         stamina = GlobalInfo.instance.stamina;
+        tax = (year - 1) * 5;
 
         workers = new List<Worker>();
         cropHexes = new List<Hex>();
