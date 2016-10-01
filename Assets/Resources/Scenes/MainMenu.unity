@@ -900,7 +900,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Set Buildings
+  m_Text: Customize House
 --- !u!222 &1627732163
 CanvasRenderer:
   m_ObjectHideFlags: 0
