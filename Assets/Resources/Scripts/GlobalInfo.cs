@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class GlobalInfo : MonoBehaviour
+public class GlobalInfo : Singleton<GlobalInfo>
 {
 
     public static GlobalInfo instance;
@@ -15,18 +15,11 @@ public class GlobalInfo : MonoBehaviour
 
     public List<WorkerType> workers;
 
-    void Awake()
+    protected override void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
+        base.Awake();
+        base.SetScenePersistence();
 
-        DontDestroyOnLoad(gameObject);
         InitWorkers();
     }
 
